@@ -18,7 +18,11 @@ from sklearn.preprocessing import (
     QuantileTransformer,
     RobustScaler,
 )
+from torch.optim import Adam, SGD, AdamW, StepLR, MultiStepLR, CosineAnnealingLR, ReduceLROnPlateau
+from torch.nn import MSELoss, L1Loss, L2Loss
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix, classification_report
+from torch.utils.data import Dataset, DataLoader
+import time
 
 
 
@@ -29,8 +33,11 @@ class DataPreprocessing:
         self.data_path_train = data_path_train
         self.data_path_test = data_path_test
         self.load_data()
-        self.check_data()
+        #self.check_data()
+        self.numerical_columns = ['ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History']
+        self.categorical_columns = ['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Property_Area']
         self.data_proprocessing()
+        self.build_dataset()
         self.build_dataloader()
     
     def load_data(self):
@@ -77,11 +84,66 @@ class DataPreprocessing:
         self.data_train.fillna(self.data_train.median(), inplace=True)
         self.data_train.drop_duplicates(inplace=True)
         self.data_train.reset_index(drop=True, inplace=True)
-        
+        for col in self.numerical_columns:
+            if col in self.data_train.columns:
+                self.data_train[col] = self.data_train[col].fillna(self.data_train[col].median())
+        for col in self.categorical_columns:
+            if col in self.data_train.columns:
+                self.data_train[col] = self.data_train[col].fillna('Unknown')
+        mask = self.data_train[self.categorical_columns].eq('Unknown').any(axis=1)
+        self.data_train = self.data_train[~mask]
+        self.data_train.reset_index(drop=True, inplace=True)
+
+
+    def build_dataset(self):
+        self.data_train_dataset = Dataset(self.data_train)
+        self.data_test_dataset = Dataset(self.data_test)
 
     def build_dataloader(self):
-        pass
-        # return train_loader, test_loader
+        self.data_train_loader = DataLoader(self.data_train_dataset, batch_size=32, shuffle=True)
+        self.data_test_loader = DataLoader(self.data_test_dataset, batch_size=32, shuffle=True)
+        return self.data_train_loader, self.data_test_loader
+
+
+
+def Timer(func):
+    def wrapper(*args,**kwargs):
+        start_time = time.time()
+        result = func(*args,**kwargs)
+        end_time = time.time()
+        print(f"Time taken: {end_time - start_time} seconds")
+        return result
+    return wrapper
+
+def select_optimizer(config):
+    assert config.train.optimizer.name in ['Adam', 'SGD', 'AdamW'], "Optimizer name must be one of: Adam, SGD, AdamW"
+    if config.train.optimizer.name == 'Adam':
+        return Adam(config.train.optimizer.lr)
+    elif config.train.optimizer.name == 'SGD':
+        return SGD(config.train.optimizer.lr)
+    elif config.train.optimizer.name == 'AdamW':
+        return AdamW(config.train.optimizer.lr)
+
+def select_loss(config):
+    assert config.train.loss.name in ['MSELoss', 'L1Loss', 'L2Loss'], "Loss name must be one of: MSELoss, L1Loss, L2Loss"
+    if config.train.loss.name == 'MSELoss':
+        return MSELoss()
+    elif config.train.loss.name == 'L1Loss':
+        return L1Loss()
+    elif config.train.loss.name == 'L2Loss':
+        return L2Loss()
+
+def select_scheduler(config):
+    assert config.train.scheduler.name in ['StepLR', 'MultiStepLR', 'CosineAnnealingLR', 'ReduceLROnPlateau'], "Scheduler name must be one of: StepLR, MultiStepLR, CosineAnnealingLR, ReduceLROnPlateau"
+    if config.train.scheduler.name == 'StepLR':
+        return StepLR(config.train.scheduler.lr)
+    elif config.train.scheduler.name == 'MultiStepLR':
+        return MultiStepLR(config.train.scheduler.lr)
+    elif config.train.scheduler.name == 'CosineAnnealingLR':
+        return CosineAnnealingLR(config.train.scheduler.lr)
+    elif config.train.scheduler.name == 'ReduceLROnPlateau':
+        return ReduceLROnPlateau(config.train.scheduler.lr)
+    
 
 
 

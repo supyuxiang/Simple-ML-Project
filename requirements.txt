@@ -1,36 +1,49 @@
-# 核心机器学习库
+# Core dependencies
 numpy>=1.21.0
 pandas>=1.3.0
 scikit-learn>=1.0.0
 matplotlib>=3.5.0
 seaborn>=0.11.0
+tqdm>=4.62.0
+
+# Machine Learning models
+xgboost>=1.5.0
+lightgbm>=3.2.0
+
+# Data processing
+imbalanced-learn>=0.8.0
+feature-engine>=1.2.0
+
+# Visualization
 plotly>=5.0.0
+bokeh>=2.4.0
 
-# 深度学习框架
-torch>=1.12.0
-torchvision>=0.13.0
+# Experiment tracking
+swanlab>=0.3.0
+wandb>=0.12.0
 
-# 数据处理和可视化
-tqdm>=4.60.0
-openpyxl>=3.0.0
-xlrd>=2.0.0
+# Configuration
+pyyaml>=6.0
+hydra-core>=1.1.0
 
-# 高级机器学习库
-xgboost>=1.6.0
-lightgbm>=3.3.0
-catboost>=1.1.0
+# Utilities
+joblib>=1.1.0
+psutil>=5.8.0
+pathlib2>=2.3.0
 
-# 数据下载
-kagglehub>=0.3.0
-requests>=2.25.0
+# Development
+pytest>=6.2.0
+pytest-cov>=3.0.0
+black>=21.0.0
+flake8>=4.0.0
+mypy>=0.910
 
-# 配置管理
-PyYAML>=6.0
-python-dotenv>=0.19.0
-
-# 实验跟踪
-swanlab>=0.6.0
-
-# 其他工具
+# Jupyter
 jupyter>=1.0.0
 ipykernel>=6.0.0
+notebook>=6.4.0
+
+# Optional: Deep Learning (uncomment if needed)
+# torch>=1.10.0
+# tensorflow>=2.7.0
+# pytorch-lightning>=1.5.0

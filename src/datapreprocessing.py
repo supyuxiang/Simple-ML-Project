@@ -69,6 +69,14 @@ print("\n验证是否还有 'Unknown' 值:")
 for col in categorical_columns:
     unknown_count = (df_clean[col] == 'Unknown').sum()
     print(f"{col}: {unknown_count} 个 'Unknown'")
+
+
+
+print('*'*100)
+print('处理后的数据')
+print(df_clean.columns)
+print(df_clean)
+print(df_clean.shape)
             
 
 
