@@ -1,0 +1,36 @@
+# 核心机器学习库
+numpy>=1.21.0
+pandas>=1.3.0
+scikit-learn>=1.0.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
+plotly>=5.0.0
+
+# 深度学习框架
+torch>=1.12.0
+torchvision>=0.13.0
+
+# 数据处理和可视化
+tqdm>=4.60.0
+openpyxl>=3.0.0
+xlrd>=2.0.0
+
+# 高级机器学习库
+xgboost>=1.6.0
+lightgbm>=3.3.0
+catboost>=1.1.0
+
+# 数据下载
+kagglehub>=0.3.0
+requests>=2.25.0
+
+# 配置管理
+PyYAML>=6.0
+python-dotenv>=0.19.0
+
+# 实验跟踪
+swanlab>=0.6.0
+
+# 其他工具
+jupyter>=1.0.0
+ipykernel>=6.0.0
