@@ -16,6 +16,7 @@ print(df.isnull().sum())
 
 print("\n=== 处理缺失值 ===")
 
+
 # 方法1: 查看缺失值详情
 print("各列缺失值详情:")
 for col in df.columns:
