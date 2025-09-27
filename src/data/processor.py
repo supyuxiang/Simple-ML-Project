@@ -242,7 +242,7 @@ class LoanDataProcessor(BaseDataProcessor):
         
         return df_encoded
     
-    def create_features(self, df: pd.DataFrame) -> pd.DataFrame:
+    def _create_features(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Create new features for better model performance
         
@@ -304,7 +304,7 @@ class LoanDataProcessor(BaseDataProcessor):
         
         return df_features
     
-    def scale_features(self, df: pd.DataFrame) -> pd.DataFrame:
+    def _scale_features(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Scale numerical features
         
@@ -357,13 +357,13 @@ class LoanDataProcessor(BaseDataProcessor):
         df_processed = self.handle_missing_values(data)
         
         # Step 2: Create new features
-        df_processed = self.create_features(df_processed)
+        df_processed = self._create_features(df_processed)
         
         # Step 3: Encode categorical features
         df_processed = self.encode_categorical_features(df_processed)
         
         # Step 4: Scale features
-        df_processed = self.scale_features(df_processed)
+        df_processed = self._scale_features(df_processed)
         
         # Step 5: Separate features and target
         if self.target_name in df_processed.columns:

@@ -1,0 +1,19 @@
+2025-09-27 15:20:46 - file - INFO - info:137 - SwanLab experiment tracking initialized
+2025-09-27 15:20:46 - file - INFO - info:137 - Logger initialized successfully
+2025-09-27 15:20:46 - file - INFO - info:137 - Initialized RandomForest model
+2025-09-27 15:20:46 - file - INFO - info:137 - Initialized LogisticRegression model
+2025-09-27 15:20:46 - file - INFO - info:137 - SwanLab experiment tracking initialized
+2025-09-27 15:20:46 - file - INFO - info:137 - Logger initialized successfully
+2025-09-27 15:20:46 - file - INFO - info:137 - Initialized RandomForest model
+2025-09-27 15:20:46 - file - INFO - info:137 - ModelTrainer initialized
+2025-09-27 15:20:46 - file - INFO - info:137 - Model set to RandomForest
+2025-09-27 15:20:46 - file - INFO - info:137 - Training RandomForest model...
+2025-09-27 15:20:46 - file - INFO - info:137 - Performing 5-fold cross-validation...
+2025-09-27 15:20:49 - file - INFO - info:137 - Training RandomForest model...
+2025-09-27 15:20:49 - file - INFO - info:137 - RandomForest model training completed
+2025-09-27 15:20:49 - file - INFO - info:137 - Training completed. CV Score: 0.5000 ± 0.1049
+2025-09-27 15:20:49 - file - DEBUG - debug:127 - Making predictions with RandomForest model
+2025-09-27 15:20:49 - file - DEBUG - debug:127 - Predictions completed. Shape: (100,)
+2025-09-27 15:20:49 - file - DEBUG - debug:127 - Making probability predictions with RandomForest model
+2025-09-27 15:20:49 - file - DEBUG - debug:127 - Probability predictions completed. Shape: (100, 2)
+2025-09-27 15:20:49 - file - INFO - info:137 - Evaluation completed. Accuracy: 0.9800

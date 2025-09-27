@@ -18,8 +18,9 @@ from sklearn.preprocessing import (
     QuantileTransformer,
     RobustScaler,
 )
-from torch.optim import Adam, SGD, AdamW, StepLR, MultiStepLR, CosineAnnealingLR, ReduceLROnPlateau
-from torch.nn import MSELoss, L1Loss, L2Loss
+from torch.optim import Adam, SGD, AdamW
+from torch.optim.lr_scheduler import StepLR, MultiStepLR, CosineAnnealingLR, ReduceLROnPlateau
+from torch.nn import MSELoss, L1Loss
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix, classification_report
 from torch.utils.data import Dataset, DataLoader
 import time

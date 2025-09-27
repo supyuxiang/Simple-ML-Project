@@ -103,6 +103,10 @@ class ModelTrainer(BaseTrainer):
         if self.logger:
             self.logger.info(f"Performing {self.cv_folds}-fold cross-validation...")
         
+        # Build model if not already built
+        if self.model.model is None:
+            self.model.model = self.model.build_model()
+        
         # Perform cross-validation
         cv_scores = cross_val_score(
             self.model.model,  # Use the underlying sklearn model

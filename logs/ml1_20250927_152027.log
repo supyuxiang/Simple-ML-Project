@@ -1,0 +1,22 @@
+2025-09-27 15:20:29 - file - INFO - info:137 - SwanLab experiment tracking initialized
+2025-09-27 15:20:29 - file - INFO - info:137 - Logger initialized successfully
+2025-09-27 15:20:29 - file - INFO - info:137 - LoanDataProcessor initialized
+2025-09-27 15:20:29 - file - INFO - info:137 - Data loaded successfully from data/train_u6lujuX_CVtuZ9i.csv
+2025-09-27 15:20:29 - file - INFO - info:137 - Data shape: (614, 13)
+2025-09-27 15:20:29 - file - INFO - info:137 - Columns: ['Loan_ID', 'Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Loan_Status']
+2025-09-27 15:20:29 - file - INFO - info:137 - Starting data preprocessing pipeline
+2025-09-27 15:20:29 - file - INFO - info:137 - Missing values after processing: 0
+2025-09-27 15:20:30 - file - INFO - info:137 - Created 7 new features: ['TotalIncome', 'IncomeRatio', 'IncomeCategory', 'LoanToIncomeRatio', 'EMI', 'CreditCategory', 'PropertyCategory']
+2025-09-27 15:20:30 - file - INFO - info:137 - Encoded 10 categorical features
+2025-09-27 15:20:30 - file - INFO - info:137 - Scaled 19 numerical features using standard scaling
+2025-09-27 15:20:30 - file - INFO - info:137 - Preprocessing completed. Features shape: (614, 18)
+2025-09-27 15:20:30 - file - INFO - info:137 - Target shape: (614,)
+2025-09-27 15:20:30 - file - INFO - info:137 - Target distribution: [192 422]
+2025-09-27 15:20:30 - file - INFO - info:137 - Initialized RandomForest model
+2025-09-27 15:20:30 - file - INFO - info:137 - ModelTrainer initialized
+2025-09-27 15:20:30 - file - INFO - info:137 - Model set to RandomForest
+2025-09-27 15:20:30 - file - INFO - info:137 - Training RandomForest model...
+2025-09-27 15:20:30 - file - INFO - info:137 - Performing 5-fold cross-validation...
+2025-09-27 15:20:33 - file - INFO - info:137 - Training RandomForest model...
+2025-09-27 15:20:33 - file - INFO - info:137 - RandomForest model training completed
+2025-09-27 15:20:33 - file - INFO - info:137 - Training completed. CV Score: 0.7883 ± 0.0154

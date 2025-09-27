@@ -23,7 +23,7 @@ Logger:
 
 Device:
   device_type: 'cuda'
-  device_id :'7,8'
+  device_id: '7,8'
 
 
 Train:

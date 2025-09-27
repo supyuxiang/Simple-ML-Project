@@ -1,0 +1,16 @@
+2025-09-27 15:18:01 - file - INFO - info:137 - SwanLab experiment tracking initialized
+2025-09-27 15:18:01 - file - INFO - info:137 - Logger initialized successfully
+2025-09-27 15:18:01 - file - INFO - info:137 - Initialized RandomForest model
+2025-09-27 15:18:01 - file - INFO - info:137 - Initialized LogisticRegression model
+2025-09-27 15:18:01 - file - INFO - info:137 - SwanLab experiment tracking initialized
+2025-09-27 15:18:01 - file - INFO - info:137 - Logger initialized successfully
+2025-09-27 15:18:01 - file - INFO - info:137 - Initialized RandomForest model
+2025-09-27 15:18:01 - file - INFO - info:137 - ModelTrainer initialized
+2025-09-27 15:18:01 - file - INFO - info:137 - Model set to RandomForest
+2025-09-27 15:18:01 - file - INFO - info:137 - Training RandomForest model...
+2025-09-27 15:18:01 - file - INFO - info:137 - Performing 5-fold cross-validation...
+2025-09-27 15:18:01 - file - INFO - info:137 - SwanLab experiment tracking initialized
+2025-09-27 15:18:01 - file - INFO - info:137 - Logger initialized successfully
+2025-09-27 15:18:01 - file - INFO - info:137 - ModelEvaluator initialized
+2025-09-27 15:18:01 - file - INFO - info:137 - Computed 4 metrics
+2025-09-27 15:18:01 - file - INFO - info:137 - Computed 4 metrics
