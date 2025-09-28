@@ -1,0 +1,6 @@
+2025-09-28 09:35:15 - file - INFO - logger - _log_with_metrics:255 - SwanLab experiment tracking initialized
+2025-09-28 09:35:15 - file - INFO - logger - _log_with_metrics:255 - Production logging system initialized successfully
+2025-09-28 09:35:15 - file - DEBUG - logger - _log_with_metrics:255 - Log directory: /home/yxfeng/project2/Simple-ML-project/logs
+2025-09-28 09:35:15 - file - DEBUG - logger - _log_with_metrics:255 - Configuration: {'swanlab': {'open': True, 'project': 'sci', 'name': 'Simple-ML-project'}}
+2025-09-28 09:35:15 - file - INFO - logger - _log_with_metrics:255 - Output directories created/verified
+2025-09-28 09:35:15 - file - INFO - logger - _log_with_metrics:255 - AdvancedDataProcessor initialized with production features

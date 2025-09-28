@@ -6,19 +6,23 @@ Model:
     learning_rate: 0.1
     max_depth: 6
     random_state: 42
-  
 
 Data:
-  dataloader:
-    shuffle: True
-    random_seed: 42
+  test_size: 0.2
+  random_seed: 42
+  missing_strategy: "smart"
+  scale_features: true
+  scaling_method: "standard"
+  create_features: true
+  feature_selection: true
+  n_features_select: 10
     
 
 Logger:
   swanlab:
     open: True
     project: 'sci'
-    name: 'ML1'
+    name: 'Simple-ML-project'
 
 
 Device:
@@ -27,79 +31,9 @@ Device:
 
 
 Train:
-  epochs: 100
-  batch_size: 8
-  learning_rate: 0.01
+  cv_folds: 5
   random_seed: 42
   verbose: 1
-  early_stopping: 10
-  patience: 10
-
-  save: 
-    model:
-      save_model: True
-      save_freq: 10
-      save_dir: '/home/yxfeng/project2/ML1/outputs/model'
-      save_format: 'pth'
-      save_name: 'model.pth'
-    curve:
-      save_curve: True
-      save_dir: '/home/yxfeng/project2/ML1/outputs/curve'
-      save_format: 'png'
-      save_name: 'curve.png'
-      dpi: 300
-    report:
-      save_report: True
-      save_dir: '/home/yxfeng/project2/ML1/outputs/report'
-      save_format: 'txt'
-      save_name: 'report.txt'
-
-  optimizer:
-    default: Adam
-    choices:
-      - 'Adam'
-      - 'SGD'
-      - 'RMSprop'
-      - 'Adagrad'
-      - 'Adadelta'
-      - 'Adamax'
-      - 'Nadam'
-    params:
-      learning_rate: 0.01
-      weight_decay: 0.0001
-      momentum: 0.9
-      eps: 1e-8
-      betas: (0.9, 0.999)
-      amsgrad: False
-      decay: 0.0
-    
-  scheduler:
-    default: ReduceLROnPlateau
-    choices:
-      - 'ReduceLROnPlateau'
-      - 'CosineAnnealingLR'
-      - 'CosineAnnealingWarmRestarts'
-      - 'LambdaLR'
-      - 'StepLR'
-      - 'MultiStepLR'
-      - 'ExponentialLR'
-      - 'CosineAnnealingLR'
-      - 'CosineAnnealingWarmRestarts'
-
-    params:
-      learning_rate: 0.01
-      weight_decay: 0.0001
-      momentum: 0.9
-      eps: 1e-8
-      betas: (0.9, 0.999)
-      amsgrad: False
-      decay: 0.0
-    
-  loss_function:
-    default: mse
-    choices:
-      - 'mse'
-      - 'mae'
     
   
 Metrics:
@@ -107,7 +41,7 @@ Metrics:
     - 'accuracy'
     - 'precision'
     - 'recall'
-    - 'f1'
+    - 'f1_score'
     - 'roc_auc'
     - 'confusion_matrix'
     - 'classification_report'

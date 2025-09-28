@@ -1,453 +1,568 @@
 """
-Data processor for loan prediction dataset
-Handles loading, cleaning, and preprocessing of loan data
+Advanced data processor with production-grade features.
+
+This module provides a comprehensive data processing system with:
+- Registry-based component management
+- Intelligent caching for expensive operations
+- Async processing capabilities
+- Real-time monitoring and metrics
+- Advanced configuration management
+- Performance profiling and optimization
 """
 
-import pandas as pd
+import asyncio
+import time
+from typing import Any, Dict, List, Optional, Tuple, Union
+from pathlib import Path
+
 import numpy as np
-from typing import Dict, List, Tuple, Optional, Any
-from sklearn.preprocessing import LabelEncoder, StandardScaler, MinMaxScaler
+import pandas as pd
+from sklearn.impute import KNNImputer, SimpleImputer
 from sklearn.model_selection import train_test_split
-from sklearn.impute import SimpleImputer, KNNImputer
-import warnings
-warnings.filterwarnings('ignore')
+from sklearn.preprocessing import LabelEncoder, MinMaxScaler, StandardScaler
 
-from ..core.base import BaseDataProcessor
+from ..core.interfaces import BaseDataProcessor
 from ..core.logger import Logger
+from ..core.registry import register_component, get_component
+from ..core.cache import cached, get_cache_manager
+from ..core.async_tasks import submit_function, TaskPriority
+from ..core.monitoring import profile_function, add_metric, get_monitoring_system
+from ..core.advanced_config import AdvancedConfigManager
+from ..core.validators import DataValidator
+from ..core.constants import (
+    FEATURE_ENGINEERING, TARGET_COLUMN, ID_COLUMN
+)
+from ..core.exceptions import DataError, PreprocessingError
 
 
-class LoanDataProcessor(BaseDataProcessor):
+@register_component("advanced_processor", "processors")
+class AdvancedDataProcessor(BaseDataProcessor):
     """
-    Data processor for loan prediction dataset
-    Handles comprehensive data preprocessing pipeline
+    Production-grade data processor with advanced features.
+    
+    Features:
+    - Component registry integration
+    - Intelligent caching for expensive operations
+    - Async processing capabilities
+    - Real-time monitoring and metrics
+    - Performance profiling
+    - Advanced configuration management
+    - Data quality assessment
     """
     
-    def __init__(self, config: Dict[str, Any], logger: Optional[Logger] = None):
+    def __init__(
+        self, 
+        config_manager: AdvancedConfigManager,
+        logger: Optional[Logger] = None
+    ):
         """
-        Initialize the data processor
+        Initialize the advanced data processor.
         
         Args:
-            config: Data processing configuration
+            config_manager: Advanced configuration manager
             logger: Logger instance
         """
-        super().__init__(config)
+        super().__init__(config_manager.get_section("Data"))
+        self.config_manager = config_manager
         self.logger = logger
-        self.label_encoders = {}
-        self.scalers = {}
-        self.imputers = {}
-        self.feature_names = None
-        self.target_name = 'Loan_Status'
+        self.monitoring = get_monitoring_system()
+        self.cache_manager = get_cache_manager()
+        self.validator = DataValidator()
         
-        # Data processing parameters
-        self.test_size = config.get('test_size', 0.2)
-        self.random_state = config.get('random_seed', 42)
-        self.validation_size = config.get('validation_size', 0.2)
+        # Configuration
+        self.data_config = config_manager.get_section("Data")
+        self.validation_config = config_manager.get_section("Validation")
         
-        # Feature engineering parameters
-        self.create_features = config.get('create_features', True)
-        self.scale_features = config.get('scale_features', True)
-        self.scaling_method = config.get('scaling_method', 'standard')  # 'standard', 'minmax', 'none'
+        # Processing parameters
+        self.test_size = self.data_config.get('test_size', 0.2)
+        self.random_seed = self.data_config.get('random_seed', 42)
+        self.missing_strategy = self.data_config.get('missing_strategy', 'smart')
+        self.scale_features = self.data_config.get('scale_features', True)
+        self.scaling_method = self.data_config.get('scaling_method', 'standard')
+        self.create_features = self.data_config.get('create_features', True)
+        self.feature_selection = self.data_config.get('feature_selection', True)
+        self.n_features_select = self.data_config.get('n_features_select', 10)
         
-        # Missing value handling
-        self.missing_strategy = config.get('missing_strategy', 'smart')  # 'smart', 'drop', 'fill'
-        self.categorical_imputer = config.get('categorical_imputer', 'most_frequent')
-        self.numerical_imputer = config.get('numerical_imputer', 'median')
+        # Processing state
+        self.processing_history: List[Dict[str, Any]] = []
+        self.feature_names: List[str] = []
+        self.scalers: Dict[str, Any] = {}
+        self.encoders: Dict[str, LabelEncoder] = {}
+        self.imputers: Dict[str, Any] = {}
         
         if self.logger:
-            self.logger.info("LoanDataProcessor initialized")
+            self.logger.info("AdvancedDataProcessor initialized with production features")
     
-    def load_data(self, data_path: str) -> pd.DataFrame:
+    @profile_function
+    @cached(ttl=7200)  # Cache for 2 hours
+    def load_data(self, data_path: Union[str, Path]) -> pd.DataFrame:
         """
-        Load loan data from CSV file
+        Load data with caching and monitoring.
         
         Args:
-            data_path: Path to the CSV file
+            data_path: Path to the data file
             
         Returns:
             Loaded DataFrame
         """
+        data_path = Path(data_path)
+        
+        if self.logger:
+            self.logger.info(f"Loading data from {data_path}")
+        
+        start_time = time.time()
+        
         try:
-            df = pd.read_csv(data_path)
+            # Load data
+            if data_path.suffix.lower() == '.csv':
+                df = pd.read_csv(data_path)
+            elif data_path.suffix.lower() in ['.xlsx', '.xls']:
+                df = pd.read_excel(data_path)
+            elif data_path.suffix.lower() == '.parquet':
+                df = pd.read_parquet(data_path)
+            else:
+                raise DataError(f"Unsupported file format: {data_path.suffix}")
+            
+            # Validate data
+            validation_results = self.validator.validate_dataframe(df)
+            
+            if not validation_results['is_valid']:
+                if self.logger:
+                    self.logger.warning(f"Data validation issues: {validation_results['errors']}")
+            
+            # Add metrics
+            loading_time = time.time() - start_time
+            add_metric("data.loading_time", loading_time)
+            add_metric("data.samples", len(df))
+            add_metric("data.features", len(df.columns))
+            add_metric("data.quality_score", validation_results['quality_score'])
+            add_metric("data.missing_percentage", df.isnull().sum().sum() / df.size * 100)
             
             if self.logger:
-                self.logger.info(f"Data loaded successfully from {data_path}")
-                self.logger.info(f"Data shape: {df.shape}")
-                self.logger.info(f"Columns: {list(df.columns)}")
+                self.logger.info(f"Data loaded successfully: {len(df)} samples, {len(df.columns)} features")
+                self.logger.info(f"Data quality score: {validation_results['quality_score']:.3f}")
             
             return df
             
         except Exception as e:
+            add_metric("data.loading_errors", 1)
+            error_msg = f"Data loading failed: {e}"
             if self.logger:
-                self.logger.error(f"Failed to load data: {e}")
-            raise
+                self.logger.error(error_msg)
+            raise DataError(error_msg) from e
     
-    def analyze_data(self, df: pd.DataFrame) -> Dict[str, Any]:
+    @profile_function
+    def preprocess(self, df: pd.DataFrame) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Perform comprehensive data analysis
+        Comprehensive data preprocessing with monitoring.
         
         Args:
             df: Input DataFrame
             
         Returns:
-            Dictionary containing data analysis results
+            Tuple of (features, targets)
         """
-        analysis = {
-            'shape': df.shape,
-            'columns': list(df.columns),
-            'dtypes': df.dtypes.to_dict(),
-            'missing_values': df.isnull().sum().to_dict(),
-            'missing_percentage': (df.isnull().sum() / len(df) * 100).to_dict(),
-            'duplicate_rows': df.duplicated().sum(),
-            'memory_usage': df.memory_usage(deep=True).sum() / 1024**2,  # MB
-        }
-        
-        # Categorical columns analysis
-        categorical_cols = df.select_dtypes(include=['object']).columns.tolist()
-        analysis['categorical_columns'] = categorical_cols
-        
-        # Numerical columns analysis
-        numerical_cols = df.select_dtypes(include=[np.number]).columns.tolist()
-        analysis['numerical_columns'] = numerical_cols
-        
-        # Target variable analysis
-        if self.target_name in df.columns:
-            target_analysis = {
-                'value_counts': df[self.target_name].value_counts().to_dict(),
-                'value_counts_pct': df[self.target_name].value_counts(normalize=True).to_dict(),
-                'is_balanced': len(df[self.target_name].unique()) > 1
-            }
-            analysis['target_analysis'] = target_analysis
-        
-        # Statistical summary
-        if numerical_cols:
-            analysis['numerical_summary'] = df[numerical_cols].describe().to_dict()
-        
         if self.logger:
-            self.logger.info("Data analysis completed")
-            self.logger.info(f"Missing values: {analysis['missing_values']}")
-            self.logger.info(f"Categorical columns: {categorical_cols}")
-            self.logger.info(f"Numerical columns: {numerical_cols}")
+            self.logger.info("Starting comprehensive data preprocessing pipeline")
         
-        return analysis
-    
-    def handle_missing_values(self, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Handle missing values in the dataset
+        start_time = time.time()
         
-        Args:
-            df: Input DataFrame
+        try:
+            # Step 1: Handle missing values
+            if self.logger:
+                self.logger.info("Step 1/6: Handling missing values")
             
-        Returns:
-            DataFrame with missing values handled
-        """
+            df_processed = self._handle_missing_values(df)
+            add_metric("preprocessing.missing_values_handled", df.isnull().sum().sum() - df_processed.isnull().sum().sum())
+            
+            # Step 2: Feature engineering
+            if self.logger:
+                self.logger.info("Step 2/6: Feature engineering")
+            
+            df_features = self._create_features(df_processed)
+            add_metric("preprocessing.features_created", len(df_features.columns) - len(df_processed.columns))
+            
+            # Step 3: Encode categorical features
+            if self.logger:
+                self.logger.info("Step 3/6: Encoding categorical features")
+            
+            df_encoded = self._encode_categorical_features(df_features)
+            add_metric("preprocessing.categorical_features_encoded", len(self.encoders))
+            
+            # Step 4: Scale features
+            if self.logger:
+                self.logger.info("Step 4/6: Scaling features")
+            
+            df_scaled = self._scale_features(df_encoded)
+            add_metric("preprocessing.features_scaled", len(self.scalers))
+            
+            # Step 5: Separate features and target
+            if self.logger:
+                self.logger.info("Step 5/6: Separating features and target")
+            
+            X, y = self._separate_features_target(df_scaled)
+            
+            # Step 6: Final validation
+            if self.logger:
+                self.logger.info("Step 6/6: Final validation")
+            
+            self._validate_processed_data(X, y)
+            
+            # Store processing metadata
+            processing_time = time.time() - start_time
+            processing_metadata = {
+                'timestamp': time.time(),
+                'samples': len(X),
+                'features': X.shape[1],
+                'processing_time': processing_time,
+                'feature_names': self.feature_names.copy(),
+                'scalers_used': list(self.scalers.keys()),
+                'encoders_used': list(self.encoders.keys())
+            }
+            self.processing_history.append(processing_metadata)
+            
+            # Add final metrics
+            add_metric("preprocessing.total_time", processing_time)
+            add_metric("preprocessing.final_features", X.shape[1])
+            add_metric("preprocessing.final_samples", len(X))
+            
+            if self.logger:
+                self.logger.info("Data preprocessing pipeline completed successfully")
+                self.logger.info(f"Final features shape: {X.shape}")
+                self.logger.info(f"Target shape: {y.shape}")
+                self.logger.info(f"Target distribution: {np.bincount(y)}")
+            
+            return X, y
+            
+        except Exception as e:
+            add_metric("preprocessing.errors", 1)
+            error_msg = f"Data preprocessing failed: {e}"
+            if self.logger:
+                self.logger.error(error_msg)
+            raise PreprocessingError(error_msg) from e
+    
+    @cached(ttl=3600)  # Cache for 1 hour
+    def _handle_missing_values(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Handle missing values with intelligent strategies."""
         df_processed = df.copy()
         
-        # Identify column types
-        categorical_cols = df_processed.select_dtypes(include=['object']).columns.tolist()
-        numerical_cols = df_processed.select_dtypes(include=[np.number]).columns.tolist()
-        
-        if self.missing_strategy == 'drop':
-            # Drop rows with any missing values
-            initial_shape = df_processed.shape
-            df_processed = df_processed.dropna()
-            if self.logger:
-                self.logger.info(f"Dropped {initial_shape[0] - df_processed.shape[0]} rows with missing values")
-        
-        elif self.missing_strategy == 'fill':
-            # Fill missing values
-            # Categorical columns
-            for col in categorical_cols:
-                if df_processed[col].isnull().sum() > 0:
-                    if self.categorical_imputer == 'most_frequent':
-                        mode_value = df_processed[col].mode()[0] if not df_processed[col].mode().empty else 'Unknown'
-                        df_processed[col] = df_processed[col].fillna(mode_value)
-                    else:
-                        df_processed[col] = df_processed[col].fillna('Unknown')
-            
-            # Numerical columns
-            for col in numerical_cols:
-                if df_processed[col].isnull().sum() > 0:
-                    if self.numerical_imputer == 'median':
-                        df_processed[col] = df_processed[col].fillna(df_processed[col].median())
-                    elif self.numerical_imputer == 'mean':
-                        df_processed[col] = df_processed[col].fillna(df_processed[col].mean())
-                    elif self.numerical_imputer == 'knn':
-                        if col not in self.imputers:
-                            self.imputers[col] = KNNImputer(n_neighbors=5)
-                        df_processed[col] = self.imputers[col].fit_transform(df_processed[[col]]).flatten()
-        
-        elif self.missing_strategy == 'smart':
-            # Smart handling based on missing percentage
-            for col in df_processed.columns:
-                missing_pct = df_processed[col].isnull().sum() / len(df_processed) * 100
-                
-                if missing_pct > 50:
-                    # Drop column if more than 50% missing
-                    df_processed = df_processed.drop(columns=[col])
-                    if self.logger:
-                        self.logger.warning(f"Dropped column {col} due to {missing_pct:.1f}% missing values")
-                
-                elif missing_pct > 0:
-                    # Fill missing values
-                    if col in categorical_cols:
-                        mode_value = df_processed[col].mode()[0] if not df_processed[col].mode().empty else 'Unknown'
-                        df_processed[col] = df_processed[col].fillna(mode_value)
-                    else:
-                        df_processed[col] = df_processed[col].fillna(df_processed[col].median())
+        # Get missing value statistics
+        missing_stats = df_processed.isnull().sum()
+        missing_percentage = (missing_stats / len(df_processed)) * 100
         
         if self.logger:
-            remaining_missing = df_processed.isnull().sum().sum()
-            self.logger.info(f"Missing values after processing: {remaining_missing}")
+            self.logger.info(f"Missing values after processing: {df_processed.isnull().sum().sum()}")
+        
+        # Apply missing value strategy
+        if self.missing_strategy == 'smart':
+            # Smart imputation based on data type and missing percentage
+            for column in df_processed.columns:
+                if df_processed[column].isnull().any():
+                    if df_processed[column].dtype in ['object', 'category']:
+                        # Categorical: use most frequent
+                        df_processed[column].fillna(df_processed[column].mode()[0], inplace=True)
+                    else:
+                        # Numerical: use median for high missing percentage, mean for low
+                        if missing_percentage[column] > 20:
+                            df_processed[column].fillna(df_processed[column].median(), inplace=True)
+                        else:
+                            df_processed[column].fillna(df_processed[column].mean(), inplace=True)
+        
+        elif self.missing_strategy == 'knn':
+            # KNN imputation for numerical columns
+            numerical_cols = df_processed.select_dtypes(include=[np.number]).columns
+            if len(numerical_cols) > 0:
+                knn_imputer = KNNImputer(n_neighbors=5)
+                df_processed[numerical_cols] = knn_imputer.fit_transform(df_processed[numerical_cols])
         
         return df_processed
     
-    def encode_categorical_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Encode categorical features
+    def _create_features(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Create advanced features with monitoring."""
+        if not self.create_features:
+            if self.logger:
+                self.logger.debug("Feature engineering disabled, skipping feature creation")
+            return df
         
-        Args:
-            df: Input DataFrame
+        if self.logger:
+            self.logger.info("Starting feature engineering")
+        
+        df_features = df.copy()
+        original_columns = set(df.columns)
+        
+        try:
+            # Get feature engineering parameters from constants
+            income_bins = FEATURE_ENGINEERING['income_bins']
+            income_labels = FEATURE_ENGINEERING['income_labels']
+            interest_rate = FEATURE_ENGINEERING['interest_rate']
             
-        Returns:
-            DataFrame with encoded categorical features
-        """
+            # Income-related features
+            if 'ApplicantIncome' in df_features.columns and 'CoapplicantIncome' in df_features.columns:
+                # Total income
+                df_features['TotalIncome'] = (
+                    df_features['ApplicantIncome'] + df_features['CoapplicantIncome']
+                )
+                
+                # Income ratio
+                df_features['IncomeRatio'] = (
+                    df_features['ApplicantIncome'] / (df_features['CoapplicantIncome'] + 1)
+                )
+                
+                # Income categories
+                df_features['IncomeCategory'] = pd.cut(
+                    df_features['TotalIncome'], 
+                    bins=income_bins,
+                    labels=income_labels,
+                    include_lowest=True
+                ).astype(str)
+                
+                if self.logger:
+                    self.logger.debug("Created income-related features")
+            
+            # Loan-related features
+            if 'LoanAmount' in df_features.columns:
+                if 'TotalIncome' in df_features.columns:
+                    # Loan to income ratio
+                    df_features['LoanToIncomeRatio'] = (
+                        df_features['LoanAmount'] / (df_features['TotalIncome'] + 1)
+                    )
+                
+                # EMI calculation
+                if 'Loan_Amount_Term' in df_features.columns:
+                    monthly_rate = interest_rate / 12
+                    df_features['EMI'] = (
+                        df_features['LoanAmount'] * monthly_rate *
+                        (1 + monthly_rate) ** df_features['Loan_Amount_Term'] /
+                        ((1 + monthly_rate) ** df_features['Loan_Amount_Term'] - 1)
+                    )
+                    df_features['EMI'] = df_features['EMI'].fillna(0)
+                    
+                    if self.logger:
+                        self.logger.debug("Created loan-related features")
+            
+            # Credit history features
+            if 'Credit_History' in df_features.columns:
+                df_features['CreditCategory'] = df_features['Credit_History'].apply(
+                    lambda x: 'Good' if x == 1 else 'Bad' if x == 0 else 'Unknown'
+                )
+                
+                if self.logger:
+                    self.logger.debug("Created credit history features")
+            
+            # Property area features
+            if 'Property_Area' in df_features.columns:
+                df_features['PropertyCategory'] = df_features['Property_Area'].apply(
+                    lambda x: 'Urban' if x == 'Urban' else 'Rural' if x == 'Rural' else 'Semiurban'
+                )
+                
+                if self.logger:
+                    self.logger.debug("Created property area features")
+                
+            # Log created features
+            new_features = [col for col in df_features.columns if col not in original_columns]
+            if new_features and self.logger:
+                self.logger.info(f"Created {len(new_features)} new features: {new_features}")
+            
+            return df_features
+            
+        except Exception as e:
+            error_msg = f"Feature engineering failed: {e}"
+            if self.logger:
+                self.logger.error(error_msg)
+            raise PreprocessingError(error_msg)
+    
+    def _encode_categorical_features(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Encode categorical features with monitoring."""
         df_encoded = df.copy()
-        categorical_cols = df_encoded.select_dtypes(include=['object']).columns.tolist()
         
-        # Remove target variable from encoding if it exists
-        if self.target_name in categorical_cols:
-            categorical_cols.remove(self.target_name)
+        # Identify categorical columns
+        categorical_cols = df_encoded.select_dtypes(include=['object', 'category']).columns
+        categorical_cols = [col for col in categorical_cols if col not in [TARGET_COLUMN, ID_COLUMN]]
         
         for col in categorical_cols:
-            if col not in self.label_encoders:
-                self.label_encoders[col] = LabelEncoder()
-                df_encoded[col] = self.label_encoders[col].fit_transform(df_encoded[col].astype(str))
-            else:
-                # Handle unseen categories
-                unique_values = set(df_encoded[col].astype(str).unique())
-                known_values = set(self.label_encoders[col].classes_)
-                unseen_values = unique_values - known_values
-                
-                if unseen_values:
-                    if self.logger:
-                        self.logger.warning(f"Unseen categories in {col}: {unseen_values}")
-                    # Replace unseen categories with most frequent category
-                    most_frequent = self.label_encoders[col].classes_[0]
-                    df_encoded[col] = df_encoded[col].astype(str).replace(list(unseen_values), most_frequent)
-                
-                df_encoded[col] = self.label_encoders[col].transform(df_encoded[col].astype(str))
+            if df_encoded[col].dtype == 'object':
+                encoder = LabelEncoder()
+                df_encoded[col] = encoder.fit_transform(df_encoded[col].astype(str))
+                self.encoders[col] = encoder
         
         if self.logger:
             self.logger.info(f"Encoded {len(categorical_cols)} categorical features")
         
         return df_encoded
     
-    def _create_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Create new features for better model performance
-        
-        Args:
-            df: Input DataFrame
-            
-        Returns:
-            DataFrame with new features
-        """
-        if not self.create_features:
-            return df
-        
-        df_features = df.copy()
-        
-        # Income-related features
-        if 'ApplicantIncome' in df_features.columns and 'CoapplicantIncome' in df_features.columns:
-            # Total income
-            df_features['TotalIncome'] = df_features['ApplicantIncome'] + df_features['CoapplicantIncome']
-            
-            # Income ratio
-            df_features['IncomeRatio'] = df_features['ApplicantIncome'] / (df_features['CoapplicantIncome'] + 1)
-            
-            # Income categories
-            df_features['IncomeCategory'] = pd.cut(
-                df_features['TotalIncome'], 
-                bins=[0, 3000, 6000, 10000, float('inf')], 
-                labels=['Low', 'Medium', 'High', 'VeryHigh']
-            )
-            df_features['IncomeCategory'] = df_features['IncomeCategory'].astype(str)
-        
-        # Loan-related features
-        if 'LoanAmount' in df_features.columns and 'TotalIncome' in df_features.columns:
-            # Loan to income ratio
-            df_features['LoanToIncomeRatio'] = df_features['LoanAmount'] / (df_features['TotalIncome'] + 1)
-            
-            # EMI (assuming 8% annual interest rate)
-            if 'Loan_Amount_Term' in df_features.columns:
-                monthly_rate = 0.08 / 12
-                df_features['EMI'] = df_features['LoanAmount'] * monthly_rate * (1 + monthly_rate)**df_features['Loan_Amount_Term'] / ((1 + monthly_rate)**df_features['Loan_Amount_Term'] - 1)
-                df_features['EMI'] = df_features['EMI'].fillna(0)
-        
-        # Credit history features
-        if 'Credit_History' in df_features.columns:
-            # Credit history categories
-            df_features['CreditCategory'] = df_features['Credit_History'].apply(
-                lambda x: 'Good' if x == 1 else 'Bad' if x == 0 else 'Unknown'
-            )
-        
-        # Property area features
-        if 'Property_Area' in df_features.columns:
-            # Property area categories
-            df_features['PropertyCategory'] = df_features['Property_Area'].apply(
-                lambda x: 'Urban' if x == 'Urban' else 'Rural' if x == 'Rural' else 'Semiurban'
-            )
-        
-        if self.logger:
-            new_features = [col for col in df_features.columns if col not in df.columns]
-            self.logger.info(f"Created {len(new_features)} new features: {new_features}")
-        
-        return df_features
-    
     def _scale_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Scale numerical features
-        
-        Args:
-            df: Input DataFrame
-            
-        Returns:
-            DataFrame with scaled features
-        """
-        if not self.scale_features or self.scaling_method == 'none':
+        """Scale features with monitoring."""
+        if not self.scale_features:
             return df
         
         df_scaled = df.copy()
-        numerical_cols = df_scaled.select_dtypes(include=[np.number]).columns.tolist()
         
-        # Remove target variable from scaling
-        if self.target_name in numerical_cols:
-            numerical_cols.remove(self.target_name)
+        # Identify numerical columns to scale
+        numerical_cols = df_scaled.select_dtypes(include=[np.number]).columns
+        numerical_cols = [col for col in numerical_cols if col not in [TARGET_COLUMN, ID_COLUMN]]
         
-        for col in numerical_cols:
-            if col not in self.scalers:
-                if self.scaling_method == 'standard':
-                    self.scalers[col] = StandardScaler()
-                elif self.scaling_method == 'minmax':
-                    self.scalers[col] = MinMaxScaler()
-                
-                df_scaled[col] = self.scalers[col].fit_transform(df_scaled[[col]]).flatten()
-            else:
-                df_scaled[col] = self.scalers[col].transform(df_scaled[[col]]).flatten()
+        if self.scaling_method == 'standard':
+            scaler = StandardScaler()
+        elif self.scaling_method == 'minmax':
+            scaler = MinMaxScaler()
+        else:
+            return df_scaled
+        
+        # Scale features
+        df_scaled[numerical_cols] = scaler.fit_transform(df_scaled[numerical_cols])
+        self.scalers[self.scaling_method] = scaler
         
         if self.logger:
             self.logger.info(f"Scaled {len(numerical_cols)} numerical features using {self.scaling_method} scaling")
         
         return df_scaled
     
-    def preprocess(self, data: pd.DataFrame) -> Tuple[np.ndarray, np.ndarray]:
-        """
-        Complete preprocessing pipeline
+    def _separate_features_target(self, df: pd.DataFrame) -> Tuple[np.ndarray, np.ndarray]:
+        """Separate features and target with validation."""
+        # Remove ID column if present
+        feature_cols = [col for col in df.columns if col not in [TARGET_COLUMN, ID_COLUMN]]
+        self.feature_names = feature_cols
         
-        Args:
-            data: Raw data
-            
-        Returns:
-            Tuple of (features, labels)
-        """
-        if self.logger:
-            self.logger.info("Starting data preprocessing pipeline")
+        X = df[feature_cols].values
+        y = df[TARGET_COLUMN].values
         
-        # Step 1: Handle missing values
-        df_processed = self.handle_missing_values(data)
-        
-        # Step 2: Create new features
-        df_processed = self._create_features(df_processed)
-        
-        # Step 3: Encode categorical features
-        df_processed = self.encode_categorical_features(df_processed)
-        
-        # Step 4: Scale features
-        df_processed = self._scale_features(df_processed)
-        
-        # Step 5: Separate features and target
-        if self.target_name in df_processed.columns:
-            # Encode target variable
-            if self.target_name not in self.label_encoders:
-                self.label_encoders[self.target_name] = LabelEncoder()
-                y = self.label_encoders[self.target_name].fit_transform(df_processed[self.target_name])
-            else:
-                y = self.label_encoders[self.target_name].transform(df_processed[self.target_name])
-            
-            # Remove target and ID columns from features
-            feature_cols = [col for col in df_processed.columns 
-                          if col not in [self.target_name, 'Loan_ID']]
-            X = df_processed[feature_cols].values
-            
-            # Store feature names
-            self.feature_names = feature_cols
-            
-        else:
-            # No target variable (test data)
-            feature_cols = [col for col in df_processed.columns if col != 'Loan_ID']
-            X = df_processed[feature_cols].values
-            y = None
-            self.feature_names = feature_cols
-        
-        if self.logger:
-            self.logger.info(f"Preprocessing completed. Features shape: {X.shape}")
-            if y is not None:
-                self.logger.info(f"Target shape: {y.shape}")
-                self.logger.info(f"Target distribution: {np.bincount(y)}")
+        # Encode target if it's categorical
+        if df[TARGET_COLUMN].dtype == 'object':
+            target_encoder = LabelEncoder()
+            y = target_encoder.fit_transform(y)
+            self.encoders[TARGET_COLUMN] = target_encoder
         
         return X, y
     
-    def split_data(self, X: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    def _validate_processed_data(self, X: np.ndarray, y: np.ndarray) -> None:
+        """Validate processed data."""
+        # Check for NaN or infinite values
+        if np.isnan(X).any():
+            raise PreprocessingError("Features contain NaN values")
+        if np.isinf(X).any():
+            raise PreprocessingError("Features contain infinite values")
+        if np.isnan(y).any():
+            raise PreprocessingError("Target contains NaN values")
+        if np.isinf(y).any():
+            raise PreprocessingError("Target contains infinite values")
+        
+        # Check data shapes
+        if X.shape[0] != y.shape[0]:
+            raise PreprocessingError("Feature and target sample counts don't match")
+        
+        if self.logger:
+            self.logger.info(f"Data validation passed. Final features shape: {X.shape}, Target shape: {y.shape}")
+    
+    @profile_function
+    def split_data(
+        self, 
+        X: np.ndarray, 
+        y: np.ndarray,
+        test_size: Optional[float] = None,
+        random_state: Optional[int] = None
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
-        Split data into train and validation sets
+        Split data with monitoring.
         
         Args:
             X: Features
-            y: Labels
+            y: Targets
+            test_size: Test set size
+            random_state: Random state
             
         Returns:
             Tuple of (X_train, X_val, y_train, y_val)
         """
+        test_size = test_size or self.test_size
+        random_state = random_state or self.random_seed
+        
+        if self.logger:
+            self.logger.info("Data split completed:")
+        
         X_train, X_val, y_train, y_val = train_test_split(
             X, y, 
-            test_size=self.validation_size,
-            random_state=self.random_state,
+            test_size=test_size, 
+            random_state=random_state,
             stratify=y
         )
         
+        # Add metrics
+        add_metric("data.train_samples", len(X_train))
+        add_metric("data.val_samples", len(X_val))
+        add_metric("data.train_features", X_train.shape[1])
+        add_metric("data.val_features", X_val.shape[1])
+        
         if self.logger:
-            self.logger.info(f"Data split completed:")
-            self.logger.info(f"  Train set: {X_train.shape[0]} samples")
-            self.logger.info(f"  Validation set: {X_val.shape[0]} samples")
+            self.logger.info(f"  Train set: {len(X_train)} samples")
+            self.logger.info(f"  Validation set: {len(X_val)} samples")
         
         return X_train, X_val, y_train, y_val
     
-    def get_feature_importance_data(self) -> Dict[str, Any]:
+    async def preprocess_async(self, df: pd.DataFrame) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Get feature importance information
-        
-        Returns:
-            Dictionary containing feature information
-        """
-        return {
-            'feature_names': self.feature_names,
-            'num_features': len(self.feature_names) if self.feature_names else 0,
-            'label_encoders': list(self.label_encoders.keys()),
-            'scalers': list(self.scalers.keys()),
-            'imputers': list(self.imputers.keys())
-        }
-    
-    def inverse_transform_target(self, y_encoded: np.ndarray) -> np.ndarray:
-        """
-        Inverse transform encoded target variable
+        Preprocess data asynchronously.
         
         Args:
-            y_encoded: Encoded target variable
-            
+            df: Input DataFrame
+        
         Returns:
-            Original target variable
+            Tuple of (features, targets)
         """
-        if self.target_name in self.label_encoders:
-            return self.label_encoders[self.target_name].inverse_transform(y_encoded)
+        if self.logger:
+            self.logger.info("Starting async data preprocessing...")
+        
+        # Submit preprocessing as async task
+        task_id = submit_function(
+            self.preprocess,
+            args=(df,),
+            priority=TaskPriority.HIGH
+        )
+        
+        # Wait for completion
+        from ..core.async_tasks import get_scheduler
+        scheduler = get_scheduler()
+        result = await scheduler.wait_for_task(task_id)
+        
+        if result.status.value == "completed":
+            return result.result
         else:
-            return y_encoded
+            raise PreprocessingError(f"Async preprocessing failed: {result.error}")
+    
+    def get_processing_history(self) -> List[Dict[str, Any]]:
+        """Get processing history."""
+        return self.processing_history.copy()
+    
+    def get_feature_importance_data(self) -> Dict[str, Any]:
+        """Get feature importance data."""
+        return {
+            'feature_names': self.feature_names,
+            'n_features': len(self.feature_names),
+            'scalers_used': list(self.scalers.keys()),
+            'encoders_used': list(self.encoders.keys())
+        }
+    
+    def export_processing_report(self, filepath: Union[str, Path]) -> None:
+        """Export comprehensive processing report."""
+        import json
+        
+        report = {
+            'processing_history': self.processing_history,
+            'feature_importance_data': self.get_feature_importance_data(),
+            'configuration': {
+                'data_config': self.data_config,
+                'validation_config': self.validation_config,
+                'config_hash': self.config_manager.get_config_hash()
+            },
+            'monitoring_metrics': {
+                'loading_time': self.monitoring.get_metric_summary("data.loading_time"),
+                'preprocessing_time': self.monitoring.get_metric_summary("preprocessing.total_time"),
+                'quality_score': self.monitoring.get_metric_summary("data.quality_score")
+            },
+            'performance_profiles': self.monitoring.get_performance_profiles()
+        }
+        
+        with open(filepath, 'w') as f:
+            json.dump(report, f, indent=2, default=str)
+        
+        if self.logger:
+            self.logger.info(f"Processing report exported to: {filepath}")

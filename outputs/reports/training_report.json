@@ -1,0 +1,77 @@
+{
+  "training_history": [
+    {
+      "cv_results": {
+        "cv_scores": [
+          0.8223569023569023,
+          0.7877673416932102,
+          0.8075810075565283,
+          0.6558608058608059,
+          0.789632360121082
+        ],
+        "cv_mean": 0.7726396835177056,
+        "cv_std": 0.059745462323958255,
+        "cv_min": 0.6558608058608059,
+        "cv_max": 0.8223569023569023
+      },
+      "final_model": {
+        "training_metrics": {
+          "accuracy": 0.8044806517311609,
+          "precision": 0.8263895003168673,
+          "recall": 0.8044806517311609,
+          "f1_score": 0.7786542998242777,
+          "roc_auc": 0.7626883502254423
+        },
+        "validation_metrics": {
+          "accuracy": 0.8617886178861789,
+          "precision": 0.8759985860728171,
+          "recall": 0.8617886178861789,
+          "f1_score": 0.850398579307016,
+          "roc_auc": 0.8089783281733747
+        },
+        "training_time": 0.03189706802368164,
+        "model_fitted": true
+      },
+      "training_time": 0.08059477806091309,
+      "model_name": "LogisticRegression",
+      "config_hash": "ff3020f5e7e24c93a898221ee17fd8be"
+    }
+  ],
+  "performance_summary": {
+    "best_cv_score": 0.7726396835177056,
+    "cv_std": 0.059745462323958255,
+    "training_time": 0.08059477806091309,
+    "model_name": "LogisticRegression",
+    "total_trainings": 1
+  },
+  "configuration": {
+    "train_config": {},
+    "model_config": {
+      "model_name": "LogisticRegression",
+      "model_type": "classification",
+      "model_params": {
+        "random_state": 42,
+        "max_iter": 1000,
+        "C": 1.0,
+        "solver": "liblinear"
+      }
+    },
+    "config_hash": "ff3020f5e7e24c93a898221ee17fd8be"
+  },
+  "monitoring_metrics": {
+    "count": 1,
+    "min": 0.7726396835177056,
+    "max": 0.7726396835177056,
+    "avg": 0.7726396835177056,
+    "latest": 0.7726396835177056,
+    "first_timestamp": "2025-09-28 10:05:41.346056",
+    "last_timestamp": "2025-09-28 10:05:41.346056"
+  },
+  "performance_profiles": {
+    "load_data": "PerformanceProfile(function_name='load_data', total_calls=1, total_time=0.010125398635864258, min_time=0.010125398635864258, max_time=0.010125398635864258, avg_time=0.010125398635864258, last_call=datetime.datetime(2025, 9, 28, 10, 5, 41, 59330))",
+    "preprocess": "PerformanceProfile(function_name='preprocess', total_calls=1, total_time=0.08216309547424316, min_time=0.08216309547424316, max_time=0.08216309547424316, avg_time=0.08216309547424316, last_call=datetime.datetime(2025, 9, 28, 10, 5, 41, 142338))",
+    "split_data": "PerformanceProfile(function_name='split_data', total_calls=1, total_time=0.003970623016357422, min_time=0.003970623016357422, max_time=0.003970623016357422, avg_time=0.003970623016357422, last_call=datetime.datetime(2025, 9, 28, 10, 5, 41, 264091))",
+    "_train_final_model": "PerformanceProfile(function_name='_train_final_model', total_calls=1, total_time=0.03230619430541992, min_time=0.03230619430541992, max_time=0.03230619430541992, avg_time=0.03230619430541992, last_call=datetime.datetime(2025, 9, 28, 10, 5, 41, 345957))",
+    "train": "PerformanceProfile(function_name='train', total_calls=1, total_time=0.08094286918640137, min_time=0.08094286918640137, max_time=0.08094286918640137, avg_time=0.08094286918640137, last_call=datetime.datetime(2025, 9, 28, 10, 5, 41, 346311))"
+  }
+}

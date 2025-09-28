@@ -1,0 +1,81 @@
+2025-09-28 10:02:32 - console - INFO - Production logging system initialized successfully
+2025-09-28 10:02:32 - console - INFO - Output directories created/verified
+2025-09-28 10:02:32 - console - INFO - AdvancedDataProcessor initialized with production features
+2025-09-28 10:02:32 - console - INFO - AdvancedModelTrainer initialized with production features
+2025-09-28 10:02:32 - console - INFO - ModelEvaluator initialized
+2025-09-28 10:02:32 - console - INFO - Pipeline components initialized successfully
+2025-09-28 10:02:32 - console - INFO - Advanced ML pipeline initialized successfully
+2025-09-28 10:02:32 - console - INFO - Environment: development
+2025-09-28 10:02:32 - console - INFO - Configuration: temp_lightgbm_config.yaml
+2025-09-28 10:02:32 - console - INFO - Data: data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 10:02:32 - console - INFO - Starting advanced ML pipeline execution
+2025-09-28 10:02:32 - console - INFO - Phase 1: Data Loading and Processing
+2025-09-28 10:02:32 - console - INFO - Loading data from data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 10:02:32 - console - INFO - Data loaded successfully: 614 samples, 13 features
+2025-09-28 10:02:32 - console - INFO - Data quality score: 0.981
+2025-09-28 10:02:32 - console - INFO - Starting async data preprocessing...
+2025-09-28 10:02:32 - console - INFO - Starting comprehensive data preprocessing pipeline
+2025-09-28 10:02:32 - console - INFO - Step 1/6: Handling missing values
+2025-09-28 10:02:32 - console - INFO - Missing values after processing: 149
+2025-09-28 10:02:32 - console - INFO - Step 2/6: Feature engineering
+2025-09-28 10:02:32 - console - INFO - Starting feature engineering
+2025-09-28 10:02:32 - console - INFO - Created 7 new features: ['TotalIncome', 'IncomeRatio', 'IncomeCategory', 'LoanToIncomeRatio', 'EMI', 'CreditCategory', 'PropertyCategory']
+2025-09-28 10:02:32 - console - INFO - Step 3/6: Encoding categorical features
+2025-09-28 10:02:32 - console - INFO - Encoded 9 categorical features
+2025-09-28 10:02:32 - console - INFO - Step 4/6: Scaling features
+2025-09-28 10:02:32 - console - INFO - Scaled 18 numerical features using standard scaling
+2025-09-28 10:02:32 - console - INFO - Step 5/6: Separating features and target
+2025-09-28 10:02:32 - console - INFO - Step 6/6: Final validation
+2025-09-28 10:02:32 - console - INFO - Data validation passed. Final features shape: (614, 18), Target shape: (614,)
+2025-09-28 10:02:32 - console - INFO - Data preprocessing pipeline completed successfully
+2025-09-28 10:02:32 - console - INFO - Final features shape: (614, 18)
+2025-09-28 10:02:32 - console - INFO - Target shape: (614,)
+2025-09-28 10:02:32 - console - INFO - Target distribution: [192 422]
+2025-09-28 10:02:32 - console - INFO - Data split completed:
+2025-09-28 10:02:32 - console - INFO -   Train set: 491 samples
+2025-09-28 10:02:32 - console - INFO -   Validation set: 123 samples
+2025-09-28 10:02:32 - console - INFO - Phase 2: Model Training
+2025-09-28 10:02:32 - console - INFO - Initialized LightGBM model (type: classification)
+2025-09-28 10:02:32 - console - INFO - Starting async training...
+2025-09-28 10:02:32 - console - INFO - Starting advanced training for LightGBM
+2025-09-28 10:02:32 - console - INFO - Performing 5-fold cross-validation...
+2025-09-28 10:02:33 - console - INFO - Training final LightGBM model...
+2025-09-28 10:02:33 - console - INFO - Training LightGBM model...
+Training until validation scores don't improve for 10 rounds
+Early stopping, best iteration is:
+[36]	valid_0's binary_logloss: 0.398305
+2025-09-28 10:02:33 - console - INFO - LightGBM model training completed
+2025-09-28 10:02:33 - console - INFO - Saving LightGBM model to outputs/models/best_model.pkl
+2025-09-28 10:02:33 - console - INFO - Model saved successfully to: outputs/models/best_model.pkl
+2025-09-28 10:02:33 - console - INFO - Best model saved to: outputs/models/best_model.pkl
+2025-09-28 10:02:33 - console - INFO - Training completed. CV Score: 0.7536 ± 0.0410
+2025-09-28 10:02:33 - console - INFO - Training time: 1.07 seconds
+2025-09-28 10:02:33 - console - INFO - Phase 3: Model Evaluation
+2025-09-28 10:02:33 - console - INFO - Computed 5 metrics
+2025-09-28 10:02:33 - console - INFO - Phase 4: Results and Reporting
+2025-09-28 10:02:33 - console - INFO - Results saved successfully
+2025-09-28 10:02:34 - console - INFO - Training report exported to: /home/yxfeng/project2/Simple-ML-project/outputs/reports/training_report.json
+2025-09-28 10:02:34 - console - INFO - Processing report exported to: /home/yxfeng/project2/Simple-ML-project/outputs/reports/processing_report.json
+2025-09-28 10:02:34 - console - ERROR - Failed to export reports: Object of type int64 is not JSON serializable
+2025-09-28 10:02:34 - console - INFO - Advanced ML pipeline completed successfully
+2025-09-28 10:02:34 - console - INFO - Total pipeline time: 1.45 seconds
+
+============================================================
+ADVANCED ML PIPELINE SUMMARY
+============================================================
+Status: SUCCESS
+Model: LightGBM
+Features: 18
+Training Samples: 491
+Validation Samples: 123
+Total Time: 1.45s
+
+Evaluation Metrics:
+  accuracy: 0.8537
+  precision: 0.8519
+  recall: 0.8537
+  f1_score: 0.8483
+  roc_auc: 0.8644
+============================================================
+2025-09-28 10:02:39 - console - INFO - Logger closed
+2025-09-28 10:02:39 - console - INFO - Pipeline cleanup completed

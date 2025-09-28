@@ -1,0 +1,109 @@
+2025-09-28 04:13:35 - file - INFO - info:137 - SwanLab experiment tracking initialized
+2025-09-28 04:13:35 - file - INFO - info:137 - Logger initialized successfully
+2025-09-28 04:13:35 - file - INFO - info:137 - LoanDataProcessor initialized
+2025-09-28 04:13:35 - file - INFO - info:137 - FeatureEngineer initialized
+2025-09-28 04:13:35 - file - INFO - info:137 - DataValidator initialized
+2025-09-28 04:13:35 - file - INFO - info:137 - ModelTrainer initialized
+2025-09-28 04:13:35 - file - INFO - info:137 - ModelEvaluator initialized
+2025-09-28 04:13:35 - file - INFO - info:137 - All components initialized
+2025-09-28 04:13:35 - file - INFO - info:137 - ML1 Pipeline initialized successfully
+2025-09-28 04:13:35 - file - INFO - info:137 - Starting ML1 Pipeline...
+2025-09-28 04:13:35 - file - INFO - info:137 - Loading and validating data...
+2025-09-28 04:13:35 - file - INFO - info:137 - Data loaded successfully from data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 04:13:35 - file - INFO - info:137 - Data shape: (614, 13)
+2025-09-28 04:13:35 - file - INFO - info:137 - Columns: ['Loan_ID', 'Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Loan_Status']
+2025-09-28 04:13:35 - file - INFO - info:137 - Starting data quality validation
+2025-09-28 04:13:35 - file - INFO - info:137 - Data quality validation completed. Quality score: 0.70
+2025-09-28 04:13:35 - file - INFO - info:137 - Data Information:
+2025-09-28 04:13:35 - file - INFO - info:137 -   shape: (614, 13)
+2025-09-28 04:13:35 - file - INFO - info:137 -   memory_usage: 0.30919742584228516
+2025-09-28 04:13:35 - file - INFO - info:137 -   columns: ['Loan_ID', 'Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Loan_Status']
+2025-09-28 04:13:35 - file - INFO - info:137 -   dtypes: {'Loan_ID': dtype('O'), 'Gender': dtype('O'), 'Married': dtype('O'), 'Dependents': dtype('O'), 'Education': dtype('O'), 'Self_Employed': dtype('O'), 'ApplicantIncome': dtype('int64'), 'CoapplicantIncome': dtype('float64'), 'LoanAmount': dtype('float64'), 'Loan_Amount_Term': dtype('float64'), 'Credit_History': dtype('float64'), 'Property_Area': dtype('O'), 'Loan_Status': dtype('O')}
+2025-09-28 04:13:35 - file - INFO - info:137 - Data validation report:
+============================================================
+DATA VALIDATION REPORT
+============================================================
+
+Dataset Shape: (614, 13)
+Memory Usage: 0.31 MB
+Quality Score: 0.70
+
+Missing Values:
+  Total missing: 149
+
+Duplicates:
+  Duplicate rows: 0
+  Duplicate percentage: 0.00%
+
+Outliers:
+  Total outliers: 284
+
+Data Consistency:
+  Issues found: 1
+    - Bad credit but approved loans: 7
+
+Target Distribution:
+  Y: 422 (68.7%)
+  N: 192 (31.3%)
+
+============================================================
+2025-09-28 04:13:35 - file - WARNING - warning:147 - Data quality recommendations:
+2025-09-28 04:13:35 - file - WARNING - warning:147 -   - Investigate and handle outliers appropriately
+2025-09-28 04:13:35 - file - WARNING - warning:147 -   - Review and fix data consistency issues
+2025-09-28 04:13:35 - file - INFO - info:137 - Preprocessing data...
+2025-09-28 04:13:35 - file - INFO - info:137 - Starting data preprocessing pipeline
+2025-09-28 04:13:35 - file - INFO - info:137 - Missing values after processing: 0
+2025-09-28 04:13:35 - file - INFO - info:137 - Created 7 new features: ['TotalIncome', 'IncomeRatio', 'IncomeCategory', 'LoanToIncomeRatio', 'EMI', 'CreditCategory', 'PropertyCategory']
+2025-09-28 04:13:35 - file - INFO - info:137 - Encoded 10 categorical features
+2025-09-28 04:13:35 - file - INFO - info:137 - Scaled 19 numerical features using standard scaling
+2025-09-28 04:13:35 - file - INFO - info:137 - Preprocessing completed. Features shape: (614, 18)
+2025-09-28 04:13:35 - file - INFO - info:137 - Target shape: (614,)
+2025-09-28 04:13:35 - file - INFO - info:137 - Target distribution: [192 422]
+2025-09-28 04:13:35 - file - INFO - info:137 - Starting feature engineering pipeline
+2025-09-28 04:13:35 - file - INFO - info:137 - Created interaction features: 18 -> 28
+2025-09-28 04:13:35 - file - INFO - info:137 - Created polynomial features: 28 -> 434
+2025-09-28 04:13:37 - file - INFO - info:137 - Feature selection: 434 -> 10 features
+2025-09-28 04:13:37 - file - INFO - info:137 - Selected features: ['CreditCategory', 'Married CreditCategory', 'Credit_History Property_Area', 'Credit_History PropertyCategory', 'Credit_History Property_Area_x_PropertyCategory', 'Credit_History Property_Area_x_Married', 'Credit_History PropertyCategory_x_Married', 'CreditCategory PropertyCategory', 'CreditCategory Property_Area_x_Married', 'CreditCategory PropertyCategory_x_Married']
+2025-09-28 04:13:37 - file - INFO - info:137 - Feature engineering completed: 18 -> 10 features
+2025-09-28 04:13:37 - file - INFO - info:137 - Data split completed:
+2025-09-28 04:13:37 - file - INFO - info:137 -   Train set: 491 samples
+2025-09-28 04:13:37 - file - INFO - info:137 -   Validation set: 123 samples
+2025-09-28 04:13:37 - file - INFO - info:137 - Data preprocessing completed:
+2025-09-28 04:13:37 - file - INFO - info:137 -   Train set: (491, 10)
+2025-09-28 04:13:37 - file - INFO - info:137 -   Validation set: (123, 10)
+2025-09-28 04:13:37 - file - INFO - info:137 -   Test set: (123, 10)
+2025-09-28 04:13:37 - file - INFO - info:137 - Initializing models...
+2025-09-28 04:13:37 - file - INFO - info:137 - Initialized XGBoost model
+2025-09-28 04:13:37 - file - INFO - info:137 - Initialized XGBoost model
+2025-09-28 04:13:37 - file - INFO - info:137 - Initialized 1 models
+2025-09-28 04:13:37 - file - INFO - info:137 - Training models...
+2025-09-28 04:13:37 - file - INFO - info:137 - Training XGBoost...
+2025-09-28 04:13:37 - file - INFO - info:137 - Training XGBoost model...
+2025-09-28 04:13:37 - file - INFO - info:137 - XGBoost model training completed
+2025-09-28 04:13:37 - file - DEBUG - debug:127 - Making predictions with XGBoost model
+2025-09-28 04:13:37 - file - DEBUG - debug:127 - Predictions completed. Shape: (123,)
+2025-09-28 04:13:37 - file - DEBUG - debug:127 - Making probability predictions with XGBoost model
+2025-09-28 04:13:37 - file - DEBUG - debug:127 - Probability predictions completed. Shape: (123, 2)
+2025-09-28 04:13:37 - file - INFO - info:137 - Computed 4 metrics
+2025-09-28 04:13:37 - file - INFO - info:137 - Epoch 1: Train Loss = 0.0000, Val Loss = 0.1463
+2025-09-28 04:13:37 - file - INFO - info:137 - XGBoost training completed. Validation accuracy: 0.8537
+2025-09-28 04:13:37 - file - INFO - info:137 - Evaluating models...
+2025-09-28 04:13:37 - file - DEBUG - debug:127 - Making predictions with XGBoost model
+2025-09-28 04:13:37 - file - DEBUG - debug:127 - Predictions completed. Shape: (123,)
+2025-09-28 04:13:37 - file - DEBUG - debug:127 - Making probability predictions with XGBoost model
+2025-09-28 04:13:37 - file - DEBUG - debug:127 - Probability predictions completed. Shape: (123, 2)
+2025-09-28 04:13:37 - file - INFO - info:137 - Computed 4 metrics
+2025-09-28 04:13:37 - file - INFO - info:137 - Creating evaluation plots...
+2025-09-28 04:13:39 - file - INFO - info:137 - Evaluation plots saved to outputs/curves/XGBoost_evaluation.png
+2025-09-28 04:13:39 - file - INFO - info:137 - Evaluation Results:
+2025-09-28 04:13:39 - file - INFO - info:137 -   accuracy: 0.8537
+2025-09-28 04:13:39 - file - INFO - info:137 -   precision: 0.8696
+2025-09-28 04:13:39 - file - INFO - info:137 -   recall: 0.8537
+2025-09-28 04:13:39 - file - INFO - info:137 -   roc_auc: 0.8649
+2025-09-28 04:13:39 - file - INFO - info:137 - Saving results...
+2025-09-28 04:13:39 - file - INFO - info:137 - Model saved to outputs/models/XGBoost_model.pkl
+2025-09-28 04:13:39 - file - INFO - info:137 - Summary report saved to outputs/reports/summary_report.txt
+2025-09-28 04:13:39 - file - INFO - info:137 - Results saved successfully
+2025-09-28 04:13:39 - file - INFO - info:137 - ML1 Pipeline completed successfully!
+2025-09-28 04:13:40 - file - INFO - info:137 - Experiment tracking finished
+2025-09-28 04:13:40 - file - INFO - info:137 - Logger closed

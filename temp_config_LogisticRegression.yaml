@@ -1,0 +1,51 @@
+Model:
+  model_name: "LogisticRegression"
+  model_type: "classification"
+  model_params:
+    n_estimators: 100
+    learning_rate: 0.1
+    max_depth: 6
+    random_state: 42
+
+Data:
+  test_size: 0.2
+  random_seed: 42
+  missing_strategy: "smart"
+  scale_features: true
+  scaling_method: "standard"
+  create_features: true
+  feature_selection: true
+  n_features_select: 10
+    
+
+Logger:
+  swanlab:
+    open: True
+    project: 'sci'
+    name: 'Simple-ML-project'
+
+
+Device:
+  device_type: 'cuda'
+  device_id: '7,8'
+
+
+Train:
+  cv_folds: 5
+  random_seed: 42
+  verbose: 1
+    
+  
+Metrics:
+  metrics_list:
+    - 'accuracy'
+    - 'precision'
+    - 'recall'
+    - 'f1_score'
+    - 'roc_auc'
+    - 'confusion_matrix'
+    - 'classification_report'
+
+
+
+

@@ -1,0 +1,40 @@
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - SwanLab experiment tracking initialized
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Enterprise logging system initialized successfully
+2025-09-28 07:40:18 - file - DEBUG - logger - _log_with_metrics:255 - Log directory: /home/yxfeng/project2/Simple-ML-project/logs
+2025-09-28 07:40:18 - file - DEBUG - logger - _log_with_metrics:255 - Configuration: {'swanlab': {'open': True, 'project': 'sci', 'name': 'Simple-ML-project'}}
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Configuration validation passed
+2025-09-28 07:40:18 - file - DEBUG - logger - _log_with_metrics:255 - Validated configuration: {'Model': {'model_name': 'XGBoost', 'model_type': 'classification', 'model_params': {'n_estimators': 100, 'learning_rate': 0.1, 'max_depth': 6, 'random_state': 42}}, 'Data': {'test_size': 0.2, 'random_seed': 42, 'missing_strategy': 'smart', 'scale_features': True, 'scaling_method': 'standard', 'create_features': True, 'feature_selection': True, 'n_features_select': 10}, 'Logger': {'swanlab': {'open': True, 'project': 'sci', 'name': 'Simple-ML-project'}}, 'Device': {'device_type': 'cuda', 'device_id': '7,8'}, 'Train': {'cv_folds': 5, 'random_seed': 42, 'verbose': 1}, 'Metrics': {'metrics_list': ['accuracy', 'precision', 'recall', 'f1_score', 'roc_auc', 'confusion_matrix', 'classification_report']}}
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Output directories created successfully
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - LoanDataProcessor initialized successfully
+2025-09-28 07:40:18 - file - DEBUG - logger - _log_with_metrics:255 - Configuration: test_size=0.2, validation_size=0.2
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Initialized XGBoost model (type: classification)
+2025-09-28 07:40:18 - file - DEBUG - logger - _log_with_metrics:255 - Model parameters: {'n_estimators': 100, 'learning_rate': 0.1, 'max_depth': 6, 'random_state': 42}
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - ModelTrainer initialized
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - ModelEvaluator initialized
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Pipeline components initialized successfully
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Enterprise ML pipeline initialized successfully
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Environment: development
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Configuration: config.yaml
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Data: data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Starting enterprise ML pipeline execution
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Loading and validating data
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Loading data from data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Data loaded successfully: 614 samples, 13 features
+2025-09-28 07:40:18 - file - DEBUG - logger - _log_with_metrics:255 - Columns: ['Loan_ID', 'Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Loan_Status']
+2025-09-28 07:40:18 - file - INFO - logger - _log_with_metrics:255 - Data validation passed with quality score: 0.981
+2025-09-28 07:40:18 - file - ERROR - logger - _log_with_metrics:255 - Pipeline execution failed: Data loading and validation failed: name 'DataValidatorClass' is not defined
+Traceback (most recent call last):
+  File "/home/yxfeng/project2/Simple-ML-project/main.py", line 268, in _load_and_validate_data
+    data_validator = DataValidatorClass(self.config_manager.get_data_config(), self.logger)
+NameError: name 'DataValidatorClass' is not defined. Did you mean: 'DataValidator'?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yxfeng/project2/Simple-ML-project/main.py", line 229, in run_pipeline
+    self._load_and_validate_data()
+  File "/home/yxfeng/project2/Simple-ML-project/main.py", line 281, in _load_and_validate_data
+    raise DataError(f"Data loading and validation failed: {e}") from e
+src.core.exceptions.DataError: Data loading and validation failed: name 'DataValidatorClass' is not defined
+2025-09-28 07:40:20 - file - INFO - logger - _log_with_metrics:255 - Experiment tracking finished
+2025-09-28 07:40:20 - file - INFO - logger - _log_with_metrics:255 - Logger closed

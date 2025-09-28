@@ -16,6 +16,7 @@ warnings.filterwarnings('ignore')
 
 from .base_model import BaseMLModel
 from ..core.logger import Logger
+from ..core.registry import register_component
 
 # Try to import XGBoost and LightGBM
 try:
@@ -31,6 +32,7 @@ except ImportError:
     LIGHTGBM_AVAILABLE = False
 
 
+@register_component("logisticregression", "models")
 class LogisticRegressionModel(BaseMLModel):
     """
     Logistic Regression model for loan prediction
@@ -73,6 +75,7 @@ class LogisticRegressionModel(BaseMLModel):
         return self.model.predict_proba(X)
 
 
+@register_component("randomforest", "models")
 class RandomForestModel(BaseMLModel):
     """
     Random Forest model for loan prediction
@@ -117,12 +120,23 @@ class RandomForestModel(BaseMLModel):
         return self.model.predict_proba(X)
 
 
+@register_component("xgboost", "models")
 class XGBoostModel(BaseMLModel):
     """
     XGBoost model for loan prediction
     """
     
-    def __init__(self, config: Dict[str, Any], logger: Optional[Logger] = None):
+    def __init__(self, config: Dict[str, Any] = None, logger: Optional[Logger] = None, **kwargs):
+        # Handle scikit-learn compatibility
+        if config is None:
+            config = {}
+        
+        # Merge kwargs into config for scikit-learn compatibility
+        config.update(kwargs)
+        
+        # Ensure model_name is set
+        config['model_name'] = config.get('model_name', 'XGBoost')
+        
         super().__init__(config, logger)
         self.model_name = "XGBoost"
         
@@ -168,6 +182,7 @@ class XGBoostModel(BaseMLModel):
         return self.model.predict_proba(X)
 
 
+@register_component("lightgbm", "models")
 class LightGBMModel(BaseMLModel):
     """
     LightGBM model for loan prediction
@@ -220,6 +235,7 @@ class LightGBMModel(BaseMLModel):
         return self.model.predict_proba(X)
 
 
+@register_component("svm", "models")
 class SVMModel(BaseMLModel):
     """
     Support Vector Machine model for loan prediction
@@ -264,6 +280,7 @@ class SVMModel(BaseMLModel):
         return self.model.predict_proba(X)
 
 
+@register_component("naivebayes", "models")
 class NaiveBayesModel(BaseMLModel):
     """
     Naive Bayes model for loan prediction
@@ -302,6 +319,7 @@ class NaiveBayesModel(BaseMLModel):
         return self.model.predict_proba(X)
 
 
+@register_component("knn", "models")
 class KNNModel(BaseMLModel):
     """
     K-Nearest Neighbors model for loan prediction

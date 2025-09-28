@@ -1,0 +1,102 @@
+[
+  {
+    "name": "system.cpu.usage",
+    "value": 0.5,
+    "timestamp": "2025-09-28T10:05:41.047057",
+    "tags": {},
+    "unit": "percent"
+  },
+  {
+    "name": "system.memory.usage",
+    "value": 3.4,
+    "timestamp": "2025-09-28T10:05:41.047057",
+    "tags": {},
+    "unit": "percent"
+  },
+  {
+    "name": "system.memory.available",
+    "value": 1045216493568,
+    "timestamp": "2025-09-28T10:05:41.047057",
+    "tags": {},
+    "unit": "bytes"
+  },
+  {
+    "name": "system.memory.total",
+    "value": 1081803538432,
+    "timestamp": "2025-09-28T10:05:41.047057",
+    "tags": {},
+    "unit": "bytes"
+  },
+  {
+    "name": "system.disk.usage",
+    "value": 84.1,
+    "timestamp": "2025-09-28T10:05:41.047057",
+    "tags": {},
+    "unit": "percent"
+  },
+  {
+    "name": "system.disk.free",
+    "value": 31735787520,
+    "timestamp": "2025-09-28T10:05:41.047057",
+    "tags": {},
+    "unit": "bytes"
+  },
+  {
+    "name": "system.disk.total",
+    "value": 210241560576,
+    "timestamp": "2025-09-28T10:05:41.047057",
+    "tags": {},
+    "unit": "bytes"
+  },
+  {
+    "name": "system.network.bytes_sent",
+    "value": 340206623546,
+    "timestamp": "2025-09-28T10:05:41.047057",
+    "tags": {},
+    "unit": "bytes"
+  },
+  {
+    "name": "system.network.bytes_recv",
+    "value": 605219830149,
+    "timestamp": "2025-09-28T10:05:41.047057",
+    "tags": {},
+    "unit": "bytes"
+  },
+  {
+    "name": "data.loading_time",
+    "value": 0.00850987434387207,
+    "timestamp": "2025-09-28T10:05:41.057901",
+    "tags": {},
+    "unit": null
+  },
+  {
+    "name": "data.samples",
+    "value": 614,
+    "timestamp": "2025-09-28T10:05:41.057916",
+    "tags": {},
+    "unit": null
+  },
+  {
+    "name": "data.features",
+    "value": 13,
+    "timestamp": "2025-09-28T10:05:41.057921",
+    "tags": {},
+    "unit": null
+  },
+  {
+    "name": "data.quality_score",
+    "value": 0.9813329992483087,
+    "timestamp": "2025-09-28T10:05:41.057924",
+    "tags": {},
+    "unit": null
+  },
+  {
+    "name": "data.missing_percentage",
+    "value": 1.8667000751691305,
+    "timestamp": "2025-09-28T10:05:41.058618",
+    "tags": {},
+    "unit": null
+  },
+  {
+    "name": "preprocessing.missing_values_handled",
+    "value": 

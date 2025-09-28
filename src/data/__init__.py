@@ -3,12 +3,10 @@ Data processing module for ML1 project
 Contains data loading, preprocessing, and feature engineering classes
 """
 
-from .processor import LoanDataProcessor
-from .feature_engineering import FeatureEngineer
-from .validation import DataValidator
+from .processor import AdvancedDataProcessor as LoanDataProcessor
+# FeatureEngineer removed - functionality integrated into LoanDataProcessor
+# DataValidator moved to core.validators
 
 __all__ = [
-    'LoanDataProcessor',
-    'FeatureEngineer', 
-    'DataValidator'
+    'LoanDataProcessor'
 ]

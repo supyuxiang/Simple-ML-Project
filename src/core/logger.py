@@ -1,33 +1,75 @@
 """
-Logging system for ML1 project
-Provides comprehensive logging capabilities with multiple outputs
+Advanced logging system for ML project.
+
+This module provides production-grade logging capabilities including:
+- Multi-level logging with structured output
+- File and console handlers with rotation
+- Performance monitoring and metrics tracking
+- Experiment tracking integration
+- Error tracking and debugging support
 """
 
 import logging
+import logging.handlers
 import os
 import sys
+import traceback
 from datetime import datetime
-from typing import Any, Dict, Optional
 from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
+
+import yaml
 
 
 class Logger:
     """
-    Comprehensive logging system for the ML1 project
-    Supports console, file, and experiment tracking logging
+    Production-grade logging system for ML projects.
+    
+    This class provides comprehensive logging capabilities including:
+    - Multi-level structured logging
+    - File rotation and archival
+    - Performance metrics tracking
+    - Experiment tracking integration
+    - Error tracking and debugging
+    - Custom formatters and filters
+    
+    Attributes:
+        config (Dict[str, Any]): Logger configuration
+        log_dir (Path): Directory for log files
+        console_logger (logging.Logger): Console logger instance
+        file_logger (logging.Logger): File logger instance
+        experiment_logger (Optional[Any]): Experiment tracking logger
+        performance_metrics (Dict[str, Any]): Performance tracking data
     """
     
-    def __init__(self, config: Dict[str, Any], log_dir: str = "logs"):
+    def __init__(self, config: Dict[str, Any], log_dir: Union[str, Path] = "logs") -> None:
         """
-        Initialize the logger
+        Initialize the production logging system.
         
         Args:
-            config: Logger configuration
+            config: Logger configuration dictionary containing:
+                - level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+                - format: Log message format
+                - file_handler: Enable file logging
+                - console_handler: Enable console logging
+                - rotation: File rotation settings
+                - swanlab: Experiment tracking configuration
             log_dir: Directory to save log files
+            
+        Raises:
+            ValueError: If configuration is invalid
         """
         self.config = config
         self.log_dir = Path(log_dir)
-        self.log_dir.mkdir(exist_ok=True)
+        self.log_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Performance tracking
+        self.performance_metrics: Dict[str, Any] = {
+            'start_time': datetime.now(),
+            'log_count': 0,
+            'error_count': 0,
+            'warning_count': 0
+        }
         
         # Initialize loggers
         self._setup_console_logger()
@@ -35,7 +77,9 @@ class Logger:
         self._setup_experiment_logger()
         
         # Log initialization
-        self.info("Logger initialized successfully")
+        self.info("Production logging system initialized successfully")
+        self.debug(f"Log directory: {self.log_dir.absolute()}")
+        self.debug(f"Configuration: {self.config}")
     
     def _setup_console_logger(self) -> None:
         """
@@ -64,7 +108,7 @@ class Logger:
     
     def _setup_file_logger(self) -> None:
         """
-        Setup file logging
+        Setup file logging with rotation and archival.
         """
         self.file_logger = logging.getLogger('file')
         self.file_logger.setLevel(logging.DEBUG)
@@ -74,15 +118,25 @@ class Logger:
         
         # Create log file path
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        log_file = self.log_dir / f"ml1_{timestamp}.log"
+        log_file = self.log_dir / f"ml_project_{timestamp}.log"
         
-        # Create file handler
-        file_handler = logging.FileHandler(log_file, encoding='utf-8')
+        # Get rotation settings from config
+        rotation_config = self.config.get('rotation', {})
+        max_bytes = rotation_config.get('max_bytes', 10 * 1024 * 1024)  # 10MB
+        backup_count = rotation_config.get('backup_count', 5)
+        
+        # Create rotating file handler
+        file_handler = logging.handlers.RotatingFileHandler(
+            log_file,
+            maxBytes=max_bytes,
+            backupCount=backup_count,
+            encoding='utf-8'
+        )
         file_handler.setLevel(logging.DEBUG)
         
-        # Create formatter
+        # Create detailed formatter for file logs
         formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s',
+            '%(asctime)s - %(name)s - %(levelname)s - %(module)s - %(funcName)s:%(lineno)d - %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
         file_handler.setFormatter(formatter)
@@ -90,6 +144,9 @@ class Logger:
         # Add handler to logger
         self.file_logger.addHandler(file_handler)
         self.file_logger.propagate = False
+        
+        # Store log file path for reference
+        self.log_file_path = log_file
     
     def _setup_experiment_logger(self) -> None:
         """
@@ -116,55 +173,141 @@ class Logger:
             except Exception as e:
                 self.warning(f"Failed to initialize SwanLab: {e}")
     
-    def debug(self, message: str) -> None:
+    def debug(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
         """
-        Log debug message
+        Log debug message with optional context.
         
         Args:
             message: Debug message
+            extra: Optional additional context data
         """
-        self.console_logger.debug(message)
-        self.file_logger.debug(message)
+        self._log_with_metrics('debug', message, extra)
     
-    def info(self, message: str) -> None:
+    def info(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
         """
-        Log info message
+        Log info message with optional context.
         
         Args:
             message: Info message
+            extra: Optional additional context data
         """
-        self.console_logger.info(message)
-        self.file_logger.info(message)
+        self._log_with_metrics('info', message, extra)
     
-    def warning(self, message: str) -> None:
+    def warning(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
         """
-        Log warning message
+        Log warning message with optional context.
         
         Args:
             message: Warning message
+            extra: Optional additional context data
         """
-        self.console_logger.warning(message)
-        self.file_logger.warning(message)
+        self._log_with_metrics('warning', message, extra)
+        self.performance_metrics['warning_count'] += 1
     
-    def error(self, message: str) -> None:
+    def error(self, message: str, extra: Optional[Dict[str, Any]] = None, 
+              exc_info: bool = False) -> None:
         """
-        Log error message
+        Log error message with optional context and exception info.
         
         Args:
             message: Error message
+            extra: Optional additional context data
+            exc_info: Whether to include exception information
         """
-        self.console_logger.error(message)
-        self.file_logger.error(message)
+        self._log_with_metrics('error', message, extra, exc_info)
+        self.performance_metrics['error_count'] += 1
     
-    def critical(self, message: str) -> None:
+    def critical(self, message: str, extra: Optional[Dict[str, Any]] = None,
+                 exc_info: bool = False) -> None:
         """
-        Log critical message
+        Log critical message with optional context and exception info.
         
         Args:
             message: Critical message
+            extra: Optional additional context data
+            exc_info: Whether to include exception information
         """
-        self.console_logger.critical(message)
-        self.file_logger.critical(message)
+        self._log_with_metrics('critical', message, extra, exc_info)
+        self.performance_metrics['error_count'] += 1
+    
+    def _log_with_metrics(self, level: str, message: str, 
+                         extra: Optional[Dict[str, Any]] = None,
+                         exc_info: bool = False) -> None:
+        """
+        Internal method to log with performance tracking.
+        
+        Args:
+            level: Log level
+            message: Log message
+            extra: Optional context data
+            exc_info: Whether to include exception info
+        """
+        # Update performance metrics
+        self.performance_metrics['log_count'] += 1
+        
+        # Format message with context if provided
+        if extra:
+            context_str = ', '.join([f"{k}={v}" for k, v in extra.items()])
+            message = f"{message} | Context: {context_str}"
+        
+        # Log to console and file
+        getattr(self.console_logger, level)(message, exc_info=exc_info)
+        getattr(self.file_logger, level)(message, exc_info=exc_info)
+        
+        # Log to experiment tracker if available
+        if self.experiment_logger and level in ['info', 'warning', 'error', 'critical']:
+            try:
+                self.experiment_logger.log({
+                    f"log_{level}": message,
+                    "log_count": self.performance_metrics['log_count']
+                })
+            except Exception as e:
+                # Avoid recursive logging
+                print(f"Failed to log to experiment tracker: {e}")
+    
+    def log_exception(self, message: str, exception: Exception, 
+                     extra: Optional[Dict[str, Any]] = None) -> None:
+        """
+        Log exception with full traceback and context.
+        
+        Args:
+            message: Error message
+            exception: Exception instance
+            extra: Optional additional context data
+        """
+        error_context = {
+            'exception_type': type(exception).__name__,
+            'exception_message': str(exception),
+            'traceback': traceback.format_exc()
+        }
+        
+        if extra:
+            error_context.update(extra)
+        
+        self.error(f"{message}: {exception}", extra=error_context, exc_info=True)
+    
+    def log_performance_metrics(self) -> None:
+        """
+        Log current performance metrics.
+        """
+        current_time = datetime.now()
+        runtime = (current_time - self.performance_metrics['start_time']).total_seconds()
+        
+        metrics = {
+            'runtime_seconds': runtime,
+            'log_count': self.performance_metrics['log_count'],
+            'error_count': self.performance_metrics['error_count'],
+            'warning_count': self.performance_metrics['warning_count'],
+            'logs_per_second': self.performance_metrics['log_count'] / max(runtime, 1)
+        }
+        
+        self.info("Performance Metrics", extra=metrics)
+        
+        if self.experiment_logger:
+            try:
+                self.experiment_logger.log({"performance_metrics": metrics})
+            except Exception as e:
+                self.warning(f"Failed to log performance metrics: {e}")
     
     def log_metrics(self, metrics: Dict[str, Any], step: Optional[int] = None) -> None:
         """

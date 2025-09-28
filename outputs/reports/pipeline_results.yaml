@@ -1,0 +1,103 @@
+configuration_hash: ff3020f5e7e24c93a898221ee17fd8be
+data_processing_info:
+  encoders_used:
+  - Gender
+  - Married
+  - Dependents
+  - Education
+  - Self_Employed
+  - Property_Area
+  - IncomeCategory
+  - CreditCategory
+  - PropertyCategory
+  - Loan_Status
+  feature_names:
+  - Gender
+  - Married
+  - Dependents
+  - Education
+  - Self_Employed
+  - ApplicantIncome
+  - CoapplicantIncome
+  - LoanAmount
+  - Loan_Amount_Term
+  - Credit_History
+  - Property_Area
+  - TotalIncome
+  - IncomeRatio
+  - IncomeCategory
+  - LoanToIncomeRatio
+  - EMI
+  - CreditCategory
+  - PropertyCategory
+  n_features: 18
+  scalers_used:
+  - standard
+environment: development
+evaluation_results:
+  accuracy: 0.8617886178861789
+  f1_score: 0.850398579307016
+  precision: 0.8759985860728171
+  recall: 0.8617886178861789
+  roc_auc: 0.8089783281733747
+pipeline_metrics:
+  data_samples: 614
+  features: 18
+  total_time: 0.4369058609008789
+  train_samples: 491
+  val_samples: 123
+training_results:
+  config_hash: ff3020f5e7e24c93a898221ee17fd8be
+  cv_results:
+    cv_max: !!python/object/apply:numpy.core.multiarray.scalar
+    - &id001 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      iWgobL9Q6j8=
+    cv_mean: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      WpyJ23a56D8=
+    cv_min: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      zc/8zM/85D8=
+    cv_scores:
+    - 0.8223569023569023
+    - 0.7877673416932102
+    - 0.8075810075565283
+    - 0.6558608058608059
+    - 0.789632360121082
+    cv_std: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      DReIDfWWrj8=
+  final_model:
+    model_fitted: true
+    training_metrics:
+      accuracy: 0.8044806517311609
+      f1_score: 0.7786542998242777
+      precision: 0.8263895003168673
+      recall: 0.8044806517311609
+      roc_auc: 0.7626883502254423
+    training_time: 0.03189706802368164
+    validation_metrics:
+      accuracy: 0.8617886178861789
+      f1_score: 0.850398579307016
+      precision: 0.8759985860728171
+      recall: 0.8617886178861789
+      roc_auc: 0.8089783281733747
+  model_name: LogisticRegression
+  training_time: 0.08059477806091309

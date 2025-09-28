@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  ml-pipeline:
+    build:
+      context: .
+      target: development
+    ports:
+      - "8888:8888"  # Jupyter Lab
+      - "8000:8000"  # API (if implemented)
+    volumes:
+      - .:/app
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./logs:/app/logs
+      - ./cache:/app/cache
+    environment:
+      - ML_CONFIG_ENVIRONMENT=development
+      - ML_CONFIG_LOGGER_LEVEL=DEBUG
+    networks:
+      - ml-network
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ml-network
+    command: redis-server --appendonly yes
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ml_pipeline
+      POSTGRES_USER: ml_user
+      POSTGRES_PASSWORD: ml_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ml-network
+
+  monitoring:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - ml-network
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - ml-network
+
+  mlflow:
+    image: python:3.10-slim
+    ports:
+      - "5000:5000"
+    environment:
+      - MLFLOW_BACKEND_STORE_URI=postgresql://ml_user:ml_password@postgres:5432/ml_pipeline
+      - MLFLOW_DEFAULT_ARTIFACT_ROOT=/mlflow/artifacts
+    volumes:
+      - mlflow_data:/mlflow
+    networks:
+      - ml-network
+    command: >
+      bash -c "
+        pip install mlflow psycopg2-binary &&
+        mlflow server
+        --backend-store-uri postgresql://ml_user:ml_password@postgres:5432/ml_pipeline
+        --default-artifact-root /mlflow/artifacts
+        --host 0.0.0.0
+        --port 5000
+      "
+
+volumes:
+  redis_data:
+  postgres_data:
+  prometheus_data:
+  grafana_data:
+  mlflow_data:
+
+networks:
+  ml-network:
+    driver: bridge

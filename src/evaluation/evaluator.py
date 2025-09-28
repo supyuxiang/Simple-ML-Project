@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 
-from ..core.base import BaseEvaluator
+from ..core.interfaces import BaseEvaluator
 from ..core.logger import Logger
 
 

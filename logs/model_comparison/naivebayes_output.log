@@ -1,0 +1,53 @@
+2025-09-28 10:02:50 - console - INFO - Production logging system initialized successfully
+2025-09-28 10:02:50 - console - INFO - Output directories created/verified
+2025-09-28 10:02:50 - console - INFO - AdvancedDataProcessor initialized with production features
+2025-09-28 10:02:50 - console - INFO - AdvancedModelTrainer initialized with production features
+2025-09-28 10:02:50 - console - INFO - ModelEvaluator initialized
+2025-09-28 10:02:50 - console - INFO - Pipeline components initialized successfully
+2025-09-28 10:02:50 - console - INFO - Advanced ML pipeline initialized successfully
+2025-09-28 10:02:50 - console - INFO - Environment: development
+2025-09-28 10:02:50 - console - INFO - Configuration: temp_naivebayes_config.yaml
+2025-09-28 10:02:50 - console - INFO - Data: data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 10:02:50 - console - INFO - Starting advanced ML pipeline execution
+2025-09-28 10:02:50 - console - INFO - Phase 1: Data Loading and Processing
+2025-09-28 10:02:50 - console - INFO - Loading data from data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 10:02:50 - console - INFO - Data loaded successfully: 614 samples, 13 features
+2025-09-28 10:02:50 - console - INFO - Data quality score: 0.981
+2025-09-28 10:02:50 - console - INFO - Starting async data preprocessing...
+2025-09-28 10:02:50 - console - INFO - Starting comprehensive data preprocessing pipeline
+2025-09-28 10:02:50 - console - INFO - Step 1/6: Handling missing values
+2025-09-28 10:02:50 - console - INFO - Missing values after processing: 149
+2025-09-28 10:02:50 - console - INFO - Step 2/6: Feature engineering
+2025-09-28 10:02:50 - console - INFO - Starting feature engineering
+2025-09-28 10:02:50 - console - INFO - Created 7 new features: ['TotalIncome', 'IncomeRatio', 'IncomeCategory', 'LoanToIncomeRatio', 'EMI', 'CreditCategory', 'PropertyCategory']
+2025-09-28 10:02:50 - console - INFO - Step 3/6: Encoding categorical features
+2025-09-28 10:02:50 - console - INFO - Encoded 9 categorical features
+2025-09-28 10:02:50 - console - INFO - Step 4/6: Scaling features
+2025-09-28 10:02:50 - console - INFO - Scaled 18 numerical features using standard scaling
+2025-09-28 10:02:50 - console - INFO - Step 5/6: Separating features and target
+2025-09-28 10:02:50 - console - INFO - Step 6/6: Final validation
+2025-09-28 10:02:50 - console - INFO - Data validation passed. Final features shape: (614, 18), Target shape: (614,)
+2025-09-28 10:02:50 - console - INFO - Data preprocessing pipeline completed successfully
+2025-09-28 10:02:50 - console - INFO - Final features shape: (614, 18)
+2025-09-28 10:02:50 - console - INFO - Target shape: (614,)
+2025-09-28 10:02:50 - console - INFO - Target distribution: [192 422]
+2025-09-28 10:02:50 - console - INFO - Data split completed:
+2025-09-28 10:02:50 - console - INFO -   Train set: 491 samples
+2025-09-28 10:02:50 - console - INFO -   Validation set: 123 samples
+2025-09-28 10:02:50 - console - INFO - Phase 2: Model Training
+2025-09-28 10:02:50 - console - INFO - Initialized NaiveBayes model (type: classification)
+2025-09-28 10:02:50 - console - INFO - Starting async training...
+2025-09-28 10:02:50 - console - INFO - Starting advanced training for NaiveBayes
+2025-09-28 10:02:50 - console - INFO - Performing 5-fold cross-validation...
+2025-09-28 10:02:50 - console - ERROR - Cross-validation failed: The 'var_smoothing' parameter of GaussianNB must be a float in the range [0.0, inf). Got '1e-9' instead.
+2025-09-28 10:02:50 - console - ERROR - Training failed: Cross-validation failed: The 'var_smoothing' parameter of GaussianNB must be a float in the range [0.0, inf). Got '1e-9' instead.
+2025-09-28 10:02:50 - console - ERROR - Pipeline execution failed: Async training failed: Training failed: Cross-validation failed: The 'var_smoothing' parameter of GaussianNB must be a float in the range [0.0, inf). Got '1e-9' instead.
+Traceback (most recent call last):
+  File "/home/yxfeng/project2/Simple-ML-project/main.py", line 187, in run_pipeline
+    training_results = await self.model_trainer.train_async(
+  File "/home/yxfeng/project2/Simple-ML-project/src/training/trainer.py", line 385, in train_async
+    raise TrainingError(f"Async training failed: {result.error}")
+src.core.exceptions.TrainingError: Async training failed: Training failed: Cross-validation failed: The 'var_smoothing' parameter of GaussianNB must be a float in the range [0.0, inf). Got '1e-9' instead.
+Pipeline failed: Pipeline execution failed: Async training failed: Training failed: Cross-validation failed: The 'var_smoothing' parameter of GaussianNB must be a float in the range [0.0, inf). Got '1e-9' instead.
+2025-09-28 10:02:55 - console - INFO - Logger closed
+2025-09-28 10:02:55 - console - INFO - Pipeline cleanup completed

@@ -1,0 +1,167 @@
+
+
+swanlab: Tracking run with swanlab version 0.6.10
+swanlab: Run data will be saved locally in 
+/home/yxfeng/project2/Simple-ML-project/swanlog/run-20250928_094754-y2wx2iss4ilb
+3ztxgemxk
+swanlab: 👋 Hi yuuxiang,welcome to swanlab!
+swanlab: Syncing run Simple-ML-project to the cloud
+swanlab: 🏠 View project at https://swanlab.cn/@yuuxiang/sci
+swanlab: 🚀 View run at 
+https://swanlab.cn/@yuuxiang/sci/runs/y2wx2iss4ilb3ztxgemxk
+2025-09-28 09:47:55 - console - INFO - SwanLab experiment tracking initialized
+swanlab: Data type error, key: log_info, data type: str, expected: float
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Production logging system initialized successfully
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Output directories created/verified
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - AdvancedDataProcessor initialized with production features
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - AdvancedModelTrainer initialized with production features
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - ModelEvaluator initialized
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Pipeline components initialized successfully
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Advanced ML pipeline initialized successfully
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Environment: development
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Configuration: temp_config_LogisticRegression.yaml
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Data: /home/yxfeng/project2/Simple-ML-project/data/train_u6lujuX_CVtuZ9i.csv
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Starting advanced ML pipeline execution
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Phase 1: Data Loading and Processing
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Loading data from /home/yxfeng/project2/Simple-ML-project/data/train_u6lujuX_CVtuZ9i.csv
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Data loaded successfully: 614 samples, 13 features
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Data quality score: 0.981
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Starting async data preprocessing...
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Starting comprehensive data preprocessing pipeline
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Step 1/6: Handling missing values
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Missing values after processing: 149
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Step 2/6: Feature engineering
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Starting feature engineering
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Created 7 new features: ['TotalIncome', 'IncomeRatio', 'IncomeCategory', 'LoanToIncomeRatio', 'EMI', 'CreditCategory', 'PropertyCategory']
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Step 3/6: Encoding categorical features
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Encoded 9 categorical features
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Step 4/6: Scaling features
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Scaled 18 numerical features using standard scaling
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Step 5/6: Separating features and target
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Step 6/6: Final validation
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Data validation passed. Final features shape: (614, 18), Target shape: (614,)
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Data preprocessing pipeline completed successfully
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Final features shape: (614, 18)
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Target shape: (614,)
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Target distribution: [192 422]
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Data split completed:
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO -   Train set: 491 samples
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO -   Validation set: 123 samples
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Phase 2: Model Training
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Initialized LogisticRegression model (type: classification)
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Starting async training...
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Starting advanced training for LogisticRegression
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - INFO - Performing 5-fold cross-validation...
+swanlab: Chart 'log_info' creation failed. Reason: The expected value type for 
+the chart 'log_info' is one of int,float or BaseType, but the input type is str.
+2025-09-28 09:47:55 - console - ERROR - Cross-validation failed: LogisticRegression.__init__() got an unexpected keyword argument 'n_estimators'
+swanlab: Data type error, key: log_error, data type: str, expected: float
+swanlab: Chart 'log_error' creation failed. Reason: The expected value type for 
+the chart 'log_error' is one of int,float or BaseType, but the input type is 
+str.
+2025-09-28 09:47:55 - console - ERROR - Training failed: Cross-validation failed: LogisticRegression.__init__() got an unexpected keyword argument 'n_estimators'
+swanlab: Chart 'log_error' creation failed. Reason: The expected value type for 
+the chart 'log_error' is one of int,float or BaseType, but the input type is 
+str.
+2025-09-28 09:47:56 - console - ERROR - Pipeline execution failed: Async training failed: Training failed: Cross-validation failed: LogisticRegression.__init__() got an unexpected keyword argument 'n_estimators'
+Traceback (most recent call last):
+  File "/home/yxfeng/project2/Simple-ML-project/main.py", line 187, in run_pipeline
+    training_results = await self.model_trainer.train_async(
+  File "/home/yxfeng/project2/Simple-ML-project/src/training/trainer.py", line 385, in train_async
+    raise TrainingError(f"Async training failed: {result.error}")
+src.core.exceptions.TrainingError: Async training failed: Training failed: Cross-validation failed: LogisticRegression.__init__() got an unexpected keyword argument 'n_estimators'
+swanlab: Chart 'log_error' creation failed. Reason: The expected value type for 
+the chart 'log_error' is one of int,float or BaseType, but the input type is 
+str.
+Pipeline failed: Pipeline execution failed: Async training failed: Training failed: Cross-validation failed: LogisticRegression.__init__() got an unexpected keyword argument 'n_estimators'
+swanlab: 🏠 View project at https://swanlab.cn/@yuuxiang/sci
+swanlab: 🚀 View run at 
+https://swanlab.cn/@yuuxiang/sci/runs/y2wx2iss4ilb3ztxgemxk
+2025-09-28 09:48:01 - console - INFO - Experiment tracking finished
+Failed to log to experiment tracker: You must call swanlab.init() before using log()
+2025-09-28 09:48:01 - console - INFO - Logger closed
+Failed to log to experiment tracker: You must call swanlab.init() before using log()
+2025-09-28 09:48:01 - console - INFO - Pipeline cleanup completed
+Failed to log to experiment tracker: You must call swanlab.init() before using log()

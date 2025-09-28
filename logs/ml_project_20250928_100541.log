@@ -1,0 +1,79 @@
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Production logging system initialized successfully
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Log directory: /home/yxfeng/project2/Simple-ML-project/logs
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Configuration: {}
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Output directories created/verified
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - AdvancedDataProcessor initialized with production features
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - AdvancedModelTrainer initialized with production features
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - ModelEvaluator initialized
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Pipeline components initialized successfully
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Advanced ML pipeline initialized successfully
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Environment: development
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Configuration: temp_logistic_config.yaml
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Data: data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Starting advanced ML pipeline execution
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Phase 1: Data Loading and Processing
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Loading data from data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Data loaded successfully: 614 samples, 13 features
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Data quality score: 0.981
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Starting async data preprocessing...
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Starting comprehensive data preprocessing pipeline
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Step 1/6: Handling missing values
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Missing values after processing: 149
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Step 2/6: Feature engineering
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Starting feature engineering
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Created income-related features
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Created loan-related features
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Created credit history features
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Created property area features
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Created 7 new features: ['TotalIncome', 'IncomeRatio', 'IncomeCategory', 'LoanToIncomeRatio', 'EMI', 'CreditCategory', 'PropertyCategory']
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Step 3/6: Encoding categorical features
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Encoded 9 categorical features
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Step 4/6: Scaling features
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Scaled 18 numerical features using standard scaling
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Step 5/6: Separating features and target
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Step 6/6: Final validation
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Data validation passed. Final features shape: (614, 18), Target shape: (614,)
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Data preprocessing pipeline completed successfully
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Final features shape: (614, 18)
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Target shape: (614,)
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Target distribution: [192 422]
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Data split completed:
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 -   Train set: 491 samples
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 -   Validation set: 123 samples
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Phase 2: Model Training
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Initialized LogisticRegression model (type: classification)
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Model parameters: {'random_state': 42, 'max_iter': 1000, 'C': 1.0, 'solver': 'liblinear'}
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Starting async training...
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Starting advanced training for LogisticRegression
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Performing 5-fold cross-validation...
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Training final LogisticRegression model...
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Training LogisticRegression model...
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - LogisticRegression model training completed
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Making predictions with LogisticRegression model on 491 samples
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Predictions completed successfully. Shape: (491,)
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Making probability predictions with LogisticRegression model
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Probability predictions completed. Shape: (491, 2)
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Making predictions with LogisticRegression model on 123 samples
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Predictions completed successfully. Shape: (123,)
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Making probability predictions with LogisticRegression model
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Probability predictions completed. Shape: (123, 2)
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Saving LogisticRegression model to outputs/models/best_model.pkl
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Model saved successfully to: outputs/models/best_model.pkl
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Best model saved to: outputs/models/best_model.pkl
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Training completed. CV Score: 0.7726 ± 0.0597
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Training time: 0.08 seconds
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Phase 3: Model Evaluation
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Making predictions with LogisticRegression model on 123 samples
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Predictions completed successfully. Shape: (123,)
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Making probability predictions with LogisticRegression model
+2025-09-28 10:05:41 - file - DEBUG - logger - _log_with_metrics:255 - Probability predictions completed. Shape: (123, 2)
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Computed 5 metrics
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Phase 4: Results and Reporting
+2025-09-28 10:05:41 - file - INFO - logger - _log_with_metrics:255 - Results saved successfully
+2025-09-28 10:05:42 - file - INFO - logger - _log_with_metrics:255 - Training report exported to: /home/yxfeng/project2/Simple-ML-project/outputs/reports/training_report.json
+2025-09-28 10:05:43 - file - INFO - logger - _log_with_metrics:255 - Processing report exported to: /home/yxfeng/project2/Simple-ML-project/outputs/reports/processing_report.json
+2025-09-28 10:05:43 - file - ERROR - logger - _log_with_metrics:255 - Failed to export reports: Object of type int64 is not JSON serializable
+2025-09-28 10:05:43 - file - INFO - logger - _log_with_metrics:255 - Advanced ML pipeline completed successfully
+2025-09-28 10:05:43 - file - INFO - logger - _log_with_metrics:255 - Total pipeline time: 0.44 seconds
+2025-09-28 10:05:48 - file - INFO - logger - _log_with_metrics:255 - Logger closed
+2025-09-28 10:05:48 - file - INFO - logger - _log_with_metrics:255 - Pipeline cleanup completed

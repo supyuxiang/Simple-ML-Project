@@ -1,0 +1,8 @@
+2025-09-28 07:36:24 - file - INFO - logger - _log_with_metrics:255 - SwanLab experiment tracking initialized
+2025-09-28 07:36:24 - file - INFO - logger - _log_with_metrics:255 - Enterprise logging system initialized successfully
+2025-09-28 07:36:24 - file - DEBUG - logger - _log_with_metrics:255 - Log directory: /home/yxfeng/project2/Simple-ML-project/logs
+2025-09-28 07:36:24 - file - DEBUG - logger - _log_with_metrics:255 - Configuration: {'swanlab': {'open': True, 'project': 'sci', 'name': 'Simple-ML-project'}}
+2025-09-28 07:36:24 - file - INFO - logger - _log_with_metrics:255 - Initialized RandomForest model (type: classification)
+2025-09-28 07:36:24 - file - DEBUG - logger - _log_with_metrics:255 - Model parameters: {'n_estimators': 10, 'random_state': 42}
+2025-09-28 07:36:24 - file - INFO - logger - _log_with_metrics:255 - Initialized LogisticRegression model (type: classification)
+2025-09-28 07:36:24 - file - DEBUG - logger - _log_with_metrics:255 - Model parameters: {'random_state': 42, 'max_iter': 100}

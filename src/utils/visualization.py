@@ -21,7 +21,8 @@ def plot_feature_importance(feature_importance: Dict[str, float],
                           top_k: int = 15,
                           title: str = "Feature Importance",
                           figsize: Tuple[int, int] = (10, 8),
-                          save_path: Optional[str] = None) -> None:
+                          save_path: Optional[str] = None,
+                          logger: Optional[Any] = None) -> None:
     """
     Plot feature importance
     
@@ -33,14 +34,16 @@ def plot_feature_importance(feature_importance: Dict[str, float],
         save_path: Path to save the plot
     """
     if not feature_importance:
-        print("No feature importance data available")
+        if logger:
+            logger.warning("No feature importance data available")
         return
     
     # Get top K features
     sorted_features = sorted(feature_importance.items(), key=lambda x: x[1], reverse=True)[:top_k]
     
     if not sorted_features:
-        print("No features to plot")
+        if logger:
+            logger.warning("No features to plot")
         return
     
     features, importances = zip(*sorted_features)
@@ -76,7 +79,8 @@ def plot_training_history(training_history: Dict[str, Any],
                          metrics: List[str] = ['loss', 'accuracy'],
                          title: str = "Training History",
                          figsize: Tuple[int, int] = (12, 6),
-                         save_path: Optional[str] = None) -> None:
+                         save_path: Optional[str] = None,
+                         logger: Optional[Any] = None) -> None:
     """
     Plot training history
     
@@ -88,7 +92,8 @@ def plot_training_history(training_history: Dict[str, Any],
         save_path: Path to save the plot
     """
     if not training_history:
-        print("No training history data available")
+        if logger:
+            logger.warning("No training history data available")
         return
     
     # Create subplots
@@ -226,7 +231,8 @@ def plot_model_comparison(model_results: Dict[str, Dict[str, Any]],
                          metrics: List[str] = ['accuracy', 'precision', 'recall', 'f1_score'],
                          title: str = "Model Performance Comparison",
                          figsize: Tuple[int, int] = (15, 10),
-                         save_path: Optional[str] = None) -> None:
+                         save_path: Optional[str] = None,
+                         logger: Optional[Any] = None) -> None:
     """
     Plot model performance comparison
     
@@ -238,7 +244,8 @@ def plot_model_comparison(model_results: Dict[str, Dict[str, Any]],
         save_path: Path to save the plot
     """
     if not model_results:
-        print("No model results available")
+        if logger:
+            logger.warning("No model results available")
         return
     
     # Extract data for comparison
@@ -252,7 +259,8 @@ def plot_model_comparison(model_results: Dict[str, Dict[str, Any]],
             comparison_data.append(row)
     
     if not comparison_data:
-        print("No valid model results for comparison")
+        if logger:
+            logger.warning("No valid model results for comparison")
         return
     
     df_comparison = pd.DataFrame(comparison_data)

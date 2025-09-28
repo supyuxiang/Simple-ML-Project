@@ -1,0 +1,87 @@
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - SwanLab experiment tracking initialized
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Enterprise logging system initialized successfully
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Log directory: /home/yxfeng/project2/Simple-ML-project/logs
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Configuration: {'swanlab': {'open': True, 'project': 'sci', 'name': 'Simple-ML-project'}}
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Configuration validation passed
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Validated configuration: {'Model': {'model_name': 'XGBoost', 'model_type': 'classification', 'model_params': {'n_estimators': 100, 'learning_rate': 0.1, 'max_depth': 6, 'random_state': 42}}, 'Data': {'test_size': 0.2, 'random_seed': 42, 'missing_strategy': 'smart', 'scale_features': True, 'scaling_method': 'standard', 'create_features': True, 'feature_selection': True, 'n_features_select': 10}, 'Logger': {'swanlab': {'open': True, 'project': 'sci', 'name': 'Simple-ML-project'}}, 'Device': {'device_type': 'cuda', 'device_id': '7,8'}, 'Train': {'cv_folds': 5, 'random_seed': 42, 'verbose': 1}, 'Metrics': {'metrics_list': ['accuracy', 'precision', 'recall', 'f1_score', 'roc_auc', 'confusion_matrix', 'classification_report']}}
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Output directories created successfully
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - LoanDataProcessor initialized successfully
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Configuration: test_size=0.2, validation_size=0.2
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Initialized XGBoost model (type: classification)
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Model parameters: {'n_estimators': 100, 'learning_rate': 0.1, 'max_depth': 6, 'random_state': 42}
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - ModelTrainer initialized
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - ModelEvaluator initialized
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Pipeline components initialized successfully
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Enterprise ML pipeline initialized successfully
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Environment: development
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Configuration: config.yaml
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Data: data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Starting enterprise ML pipeline execution
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Loading and validating data
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Loading data from data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Data loaded successfully: 614 samples, 13 features
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Columns: ['Loan_ID', 'Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Loan_Status']
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Data validation passed with quality score: 0.981
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Data loaded successfully: 614 samples, 13 features
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Data quality score: 0.981
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Processing data with feature engineering
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Loading data from data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Data loaded successfully: 614 samples, 13 features
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Columns: ['Loan_ID', 'Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Loan_Status']
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Data validation passed with quality score: 0.981
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Starting comprehensive data preprocessing pipeline
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Step 1/6: Handling missing values
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Missing values after processing: 0
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Step 2/6: Feature engineering
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Starting feature engineering
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Created income-related features
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Created loan-related features
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Created credit history features
+2025-09-28 07:40:53 - file - DEBUG - logger - _log_with_metrics:255 - Created property area features
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Created 7 new features: ['TotalIncome', 'IncomeRatio', 'IncomeCategory', 'LoanToIncomeRatio', 'EMI', 'CreditCategory', 'PropertyCategory']
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Step 3/6: Encoding categorical features
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Encoded 10 categorical features
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Step 4/6: Scaling features
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Scaled 19 numerical features using standard scaling
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Step 5/6: Separating features and target
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Step 6/6: Final validation
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Data preprocessing pipeline completed successfully
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Final features shape: (614, 18)
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Target shape: (614,)
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Target distribution: [192 422]
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Data split completed:
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 -   Train set: 491 samples
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 -   Validation set: 123 samples
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Data processing completed:
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 -   Training set: (491, 18)
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 -   Validation set: (123, 18)
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 -   Features: 18
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Training model
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Model set to XGBoost
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Training XGBoost model...
+2025-09-28 07:40:53 - file - INFO - logger - _log_with_metrics:255 - Performing 5-fold cross-validation...
+2025-09-28 07:40:57 - file - INFO - logger - _log_with_metrics:255 - Training XGBoost model...
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - XGBoost model training completed
+2025-09-28 07:41:24 - file - DEBUG - logger - _log_with_metrics:255 - Making predictions with XGBoost model on 123 samples
+2025-09-28 07:41:24 - file - DEBUG - logger - _log_with_metrics:255 - Predictions completed successfully. Shape: (123,)
+2025-09-28 07:41:24 - file - DEBUG - logger - _log_with_metrics:255 - Making probability predictions with XGBoost model
+2025-09-28 07:41:24 - file - DEBUG - logger - _log_with_metrics:255 - Probability predictions completed. Shape: (123, 2)
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Training completed. CV Score: 0.7698 ± 0.0415
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Model training completed successfully
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Training metrics: {}
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Evaluating model
+2025-09-28 07:41:24 - file - DEBUG - logger - _log_with_metrics:255 - Making predictions with XGBoost model on 123 samples
+2025-09-28 07:41:24 - file - DEBUG - logger - _log_with_metrics:255 - Predictions completed successfully. Shape: (123,)
+2025-09-28 07:41:24 - file - DEBUG - logger - _log_with_metrics:255 - Making probability predictions with XGBoost model
+2025-09-28 07:41:24 - file - DEBUG - logger - _log_with_metrics:255 - Probability predictions completed. Shape: (123, 2)
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Computed 5 metrics
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Model evaluation completed
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Evaluation metrics: {'accuracy': 0.8373983739837398, 'precision': 0.8353892159611253, 'recall': 0.8373983739837398, 'f1_score': 0.836146413004042, 'roc_auc': 0.851702786377709}
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Saving results
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Saving XGBoost model to outputs/models/trained_model.pkl
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Model saved successfully to: outputs/models/trained_model.pkl
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Results saved successfully
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Enterprise ML pipeline completed successfully
+2025-09-28 07:41:24 - file - INFO - logger - _log_with_metrics:255 - Performance Metrics | Context: runtime_seconds=33.710898, log_count=84, error_count=0, warning_count=0, logs_per_second=2.491775804963724
+2025-09-28 07:41:25 - file - INFO - logger - _log_with_metrics:255 - Experiment tracking finished
+2025-09-28 07:41:25 - file - INFO - logger - _log_with_metrics:255 - Logger closed

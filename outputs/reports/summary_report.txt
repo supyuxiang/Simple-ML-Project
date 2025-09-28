@@ -4,7 +4,7 @@ ML1 Loan Prediction - Summary Report
 Model Performance Comparison:
 ------------------------------
 XGBoost:
-  Accuracy: 0.8618
-  F1 Score: 0.0000
+  Accuracy: 0.8455
+  F1 Score: 0.8328
 
-Best Model: XGBoost (Accuracy: 0.8618)
+Best Model: XGBoost (Accuracy: 0.8455)

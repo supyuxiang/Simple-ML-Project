@@ -13,11 +13,7 @@ from .sklearn_models import (
     NaiveBayesModel,
     KNNModel
 )
-from .ensemble_models import (
-    VotingEnsembleModel,
-    StackingEnsembleModel,
-    BaggingEnsembleModel
-)
+# Ensemble models removed - not used in current implementation
 
 __all__ = [
     'BaseMLModel',
@@ -27,8 +23,5 @@ __all__ = [
     'LightGBMModel',
     'SVMModel',
     'NaiveBayesModel',
-    'KNNModel',
-    'VotingEnsembleModel',
-    'StackingEnsembleModel',
-    'BaggingEnsembleModel'
+    'KNNModel'
 ]

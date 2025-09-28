@@ -1,0 +1,137 @@
+{
+  "processing_history": [
+    {
+      "timestamp": 1759053941.1416154,
+      "samples": 614,
+      "features": 18,
+      "processing_time": 0.08085489273071289,
+      "feature_names": [
+        "Gender",
+        "Married",
+        "Dependents",
+        "Education",
+        "Self_Employed",
+        "ApplicantIncome",
+        "CoapplicantIncome",
+        "LoanAmount",
+        "Loan_Amount_Term",
+        "Credit_History",
+        "Property_Area",
+        "TotalIncome",
+        "IncomeRatio",
+        "IncomeCategory",
+        "LoanToIncomeRatio",
+        "EMI",
+        "CreditCategory",
+        "PropertyCategory"
+      ],
+      "scalers_used": [
+        "standard"
+      ],
+      "encoders_used": [
+        "Gender",
+        "Married",
+        "Dependents",
+        "Education",
+        "Self_Employed",
+        "Property_Area",
+        "IncomeCategory",
+        "CreditCategory",
+        "PropertyCategory",
+        "Loan_Status"
+      ]
+    }
+  ],
+  "feature_importance_data": {
+    "feature_names": [
+      "Gender",
+      "Married",
+      "Dependents",
+      "Education",
+      "Self_Employed",
+      "ApplicantIncome",
+      "CoapplicantIncome",
+      "LoanAmount",
+      "Loan_Amount_Term",
+      "Credit_History",
+      "Property_Area",
+      "TotalIncome",
+      "IncomeRatio",
+      "IncomeCategory",
+      "LoanToIncomeRatio",
+      "EMI",
+      "CreditCategory",
+      "PropertyCategory"
+    ],
+    "n_features": 18,
+    "scalers_used": [
+      "standard"
+    ],
+    "encoders_used": [
+      "Gender",
+      "Married",
+      "Dependents",
+      "Education",
+      "Self_Employed",
+      "Property_Area",
+      "IncomeCategory",
+      "CreditCategory",
+      "PropertyCategory",
+      "Loan_Status"
+    ]
+  },
+  "configuration": {
+    "data_config": {
+      "data_file": "data/train_u6lujuX_CVtuZ9i.csv",
+      "target_column": "Loan_Status",
+      "test_size": 0.2,
+      "random_state": 42,
+      "categorical_columns": [
+        "Gender",
+        "Married",
+        "Dependents",
+        "Education",
+        "Self_Employed",
+        "Property_Area"
+      ]
+    },
+    "validation_config": {},
+    "config_hash": "ff3020f5e7e24c93a898221ee17fd8be"
+  },
+  "monitoring_metrics": {
+    "loading_time": {
+      "count": 1,
+      "min": 0.00850987434387207,
+      "max": 0.00850987434387207,
+      "avg": 0.00850987434387207,
+      "latest": 0.00850987434387207,
+      "first_timestamp": "2025-09-28 10:05:41.057901",
+      "last_timestamp": "2025-09-28 10:05:41.057901"
+    },
+    "preprocessing_time": {
+      "count": 1,
+      "min": 0.08085489273071289,
+      "max": 0.08085489273071289,
+      "avg": 0.08085489273071289,
+      "latest": 0.08085489273071289,
+      "first_timestamp": "2025-09-28 10:05:41.141633",
+      "last_timestamp": "2025-09-28 10:05:41.141633"
+    },
+    "quality_score": {
+      "count": 1,
+      "min": 0.9813329992483087,
+      "max": 0.9813329992483087,
+      "avg": 0.9813329992483087,
+      "latest": 0.9813329992483087,
+      "first_timestamp": "2025-09-28 10:05:41.057924",
+      "last_timestamp": "2025-09-28 10:05:41.057924"
+    }
+  },
+  "performance_profiles": {
+    "load_data": "PerformanceProfile(function_name='load_data', total_calls=1, total_time=0.010125398635864258, min_time=0.010125398635864258, max_time=0.010125398635864258, avg_time=0.010125398635864258, last_call=datetime.datetime(2025, 9, 28, 10, 5, 41, 59330))",
+    "preprocess": "PerformanceProfile(function_name='preprocess', total_calls=1, total_time=0.08216309547424316, min_time=0.08216309547424316, max_time=0.08216309547424316, avg_time=0.08216309547424316, last_call=datetime.datetime(2025, 9, 28, 10, 5, 41, 142338))",
+    "split_data": "PerformanceProfile(function_name='split_data', total_calls=1, total_time=0.003970623016357422, min_time=0.003970623016357422, max_time=0.003970623016357422, avg_time=0.003970623016357422, last_call=datetime.datetime(2025, 9, 28, 10, 5, 41, 264091))",
+    "_train_final_model": "PerformanceProfile(function_name='_train_final_model', total_calls=1, total_time=0.03230619430541992, min_time=0.03230619430541992, max_time=0.03230619430541992, avg_time=0.03230619430541992, last_call=datetime.datetime(2025, 9, 28, 10, 5, 41, 345957))",
+    "train": "PerformanceProfile(function_name='train', total_calls=1, total_time=0.08094286918640137, min_time=0.08094286918640137, max_time=0.08094286918640137, avg_time=0.08094286918640137, last_call=datetime.datetime(2025, 9, 28, 10, 5, 41, 346311))"
+  }
+}

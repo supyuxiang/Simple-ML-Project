@@ -1,0 +1,30 @@
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - SwanLab experiment tracking initialized
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Enterprise logging system initialized successfully
+2025-09-28 07:37:31 - file - DEBUG - logger - _log_with_metrics:255 - Log directory: /home/yxfeng/project2/Simple-ML-project/logs
+2025-09-28 07:37:31 - file - DEBUG - logger - _log_with_metrics:255 - Configuration: {'swanlab': {'open': True, 'project': 'sci', 'name': 'Simple-ML-project'}}
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - LoanDataProcessor initialized successfully
+2025-09-28 07:37:31 - file - DEBUG - logger - _log_with_metrics:255 - Configuration: test_size=0.2, validation_size=0.2
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Loading data from data/train_u6lujuX_CVtuZ9i.csv
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Data loaded successfully: 614 samples, 13 features
+2025-09-28 07:37:31 - file - DEBUG - logger - _log_with_metrics:255 - Columns: ['Loan_ID', 'Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Loan_Status']
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Data validation passed with quality score: 0.981
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Starting comprehensive data preprocessing pipeline
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Step 1/6: Handling missing values
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Missing values after processing: 0
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Step 2/6: Feature engineering
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Starting feature engineering
+2025-09-28 07:37:31 - file - DEBUG - logger - _log_with_metrics:255 - Created income-related features
+2025-09-28 07:37:31 - file - DEBUG - logger - _log_with_metrics:255 - Created loan-related features
+2025-09-28 07:37:31 - file - DEBUG - logger - _log_with_metrics:255 - Created credit history features
+2025-09-28 07:37:31 - file - DEBUG - logger - _log_with_metrics:255 - Created property area features
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Created 7 new features: ['TotalIncome', 'IncomeRatio', 'IncomeCategory', 'LoanToIncomeRatio', 'EMI', 'CreditCategory', 'PropertyCategory']
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Step 3/6: Encoding categorical features
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Encoded 10 categorical features
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Step 4/6: Scaling features
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Scaled 19 numerical features using standard scaling
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Step 5/6: Separating features and target
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Step 6/6: Final validation
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Data preprocessing pipeline completed successfully
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Final features shape: (614, 18)
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Target shape: (614,)
+2025-09-28 07:37:31 - file - INFO - logger - _log_with_metrics:255 - Target distribution: [192 422]
