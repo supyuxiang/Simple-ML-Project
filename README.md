@@ -1,6 +1,16 @@
-# Simple-ML-Project - Loan Prediction System
+# Simple-ML-Project - Loan Amount Prediction System
 
-A comprehensive, production-grade machine learning pipeline for loan approval prediction, built with modern software engineering practices and advanced ML techniques. This project has been optimized and cleaned for production use.
+A comprehensive machine learning system designed to predict how much a user can borrow based on their personal and financial profile. 
+
+## 🎯 Business Objective
+
+**To build a model that will classify how much a user can borrow.** The system analyzes key user characteristics including:
+- **Marital Status**: Married vs. single applicants
+- **Education Level**: Graduate vs. non-graduate education
+- **Number of Dependents**: Family size impact on loan capacity
+- **Employment Situation**: Self-employed vs. salaried employment stability
+
+The model combines these factors with financial data (income, credit history, property area) to determine optimal loan amounts for each applicant. Built with modern software engineering practices and advanced ML techniques for accurate and reliable predictions.
 
 ## 🚀 Features
 
@@ -242,23 +252,23 @@ Metrics:
 
 ## 📊 Data Format
 
-The system expects CSV data with the following structure:
+The system analyzes user profiles to predict loan amounts. The input data includes key personal and financial factors:
 
-| Column | Type | Description |
-|--------|------|-------------|
-| Loan_ID | String | Unique loan identifier |
-| Gender | Categorical | Male/Female |
-| Married | Categorical | Yes/No |
-| Dependents | Categorical | Number of dependents |
-| Education | Categorical | Graduate/Not Graduate |
-| Self_Employed | Categorical | Yes/No |
-| ApplicantIncome | Numeric | Applicant's income |
-| CoapplicantIncome | Numeric | Co-applicant's income |
-| LoanAmount | Numeric | Loan amount requested |
-| Loan_Amount_Term | Numeric | Loan term in months |
-| Credit_History | Numeric | Credit history (0/1) |
-| Property_Area | Categorical | Urban/Rural/Semiurban |
-| Loan_Status | Categorical | Y/N (target variable) |
+| Column | Type | Description | Impact on Loan Amount |
+|--------|------|-------------|----------------------|
+| Loan_ID | String | Unique loan identifier | - |
+| Gender | Categorical | Male/Female | Affects risk assessment |
+| **Married** | Categorical | Yes/No | **Key factor**: Married applicants often qualify for higher amounts |
+| **Dependents** | Categorical | Number of dependents | **Key factor**: More dependents may reduce available loan amount |
+| **Education** | Categorical | Graduate/Not Graduate | **Key factor**: Higher education typically increases loan eligibility |
+| **Self_Employed** | Categorical | Yes/No | **Key factor**: Employment stability affects loan approval and amount |
+| ApplicantIncome | Numeric | Applicant's income | Primary factor for loan amount calculation |
+| CoapplicantIncome | Numeric | Co-applicant's income | Additional income source for loan capacity |
+| LoanAmount | Numeric | Loan amount requested | Target variable for prediction |
+| Loan_Amount_Term | Numeric | Loan term in months | Affects monthly payment capacity |
+| Credit_History | Numeric | Credit history (0/1) | Critical for loan approval and amount |
+| Property_Area | Categorical | Urban/Rural/Semiurban | Location-based risk assessment |
+| Loan_Status | Categorical | Y/N (approval status) | Historical approval data for training |
 
 ## 🎯 Model Performance
 
